@@ -22,6 +22,7 @@ Partial Class Form2
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
         Label1 = New Label()
         ComboBox1 = New ComboBox()
         TextBox1 = New TextBox()
@@ -31,14 +32,17 @@ Partial Class Form2
         TextBox2 = New TextBox()
         Label3 = New Label()
         Button3 = New Button()
-        Panel1 = New Panel()
-        Panel2 = New Panel()
         Button4 = New Button()
         Button5 = New Button()
         Button6 = New Button()
         Button7 = New Button()
         TextBox3 = New TextBox()
-        Panel3 = New Panel()
+        PictureBox1 = New PictureBox()
+        PictureBox2 = New PictureBox()
+        PictureBox3 = New PictureBox()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Label1
@@ -61,7 +65,7 @@ Partial Class Form2
         ' TextBox1
         ' 
         TextBox1.Cursor = Cursors.IBeam
-        TextBox1.Location = New Point(41, 205)
+        TextBox1.Location = New Point(40, 328)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
@@ -89,7 +93,7 @@ Partial Class Form2
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(40, 128)
+        Label2.Location = New Point(22, 133)
         Label2.Name = "Label2"
         Label2.Size = New Size(93, 20)
         Label2.TabIndex = 5
@@ -98,7 +102,7 @@ Partial Class Form2
         ' TextBox2
         ' 
         TextBox2.Cursor = Cursors.IBeam
-        TextBox2.Location = New Point(40, 492)
+        TextBox2.Location = New Point(40, 645)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
         TextBox2.ScrollBars = ScrollBars.Vertical
@@ -108,7 +112,7 @@ Partial Class Form2
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(41, 182)
+        Label3.Location = New Point(40, 305)
         Label3.Name = "Label3"
         Label3.Size = New Size(50, 20)
         Label3.TabIndex = 7
@@ -116,48 +120,34 @@ Partial Class Form2
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(328, 492)
+        Button3.Location = New Point(341, 645)
         Button3.Name = "Button3"
         Button3.Size = New Size(70, 57)
         Button3.TabIndex = 8
         Button3.Text = "送信"
         Button3.UseVisualStyleBackColor = True
         ' 
-        ' Panel1
-        ' 
-        Panel1.Location = New Point(459, 46)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(496, 252)
-        Panel1.TabIndex = 9
-        ' 
-        ' Panel2
-        ' 
-        Panel2.Location = New Point(459, 304)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(496, 116)
-        Panel2.TabIndex = 10
-        ' 
         ' Button4
         ' 
-        Button4.Location = New Point(459, 437)
+        Button4.Location = New Point(461, 568)
         Button4.Name = "Button4"
-        Button4.Size = New Size(70, 54)
+        Button4.Size = New Size(120, 54)
         Button4.TabIndex = 11
         Button4.Text = "ひっと"
         Button4.UseVisualStyleBackColor = True
         ' 
         ' Button5
         ' 
-        Button5.Location = New Point(535, 437)
+        Button5.Location = New Point(587, 568)
         Button5.Name = "Button5"
-        Button5.Size = New Size(70, 54)
+        Button5.Size = New Size(122, 54)
         Button5.TabIndex = 12
         Button5.Text = "すたんど"
         Button5.UseVisualStyleBackColor = True
         ' 
         ' Button6
         ' 
-        Button6.Location = New Point(809, 437)
+        Button6.Location = New Point(1043, 568)
         Button6.Name = "Button6"
         Button6.Size = New Size(70, 54)
         Button6.TabIndex = 13
@@ -166,7 +156,7 @@ Partial Class Form2
         ' 
         ' Button7
         ' 
-        Button7.Location = New Point(885, 437)
+        Button7.Location = New Point(1119, 568)
         Button7.Name = "Button7"
         Button7.Size = New Size(70, 54)
         Button7.TabIndex = 14
@@ -175,31 +165,51 @@ Partial Class Form2
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(665, 451)
+        TextBox3.Location = New Point(881, 582)
         TextBox3.Name = "TextBox3"
         TextBox3.Size = New Size(125, 27)
         TextBox3.TabIndex = 15
         ' 
-        ' Panel3
+        ' PictureBox1
         ' 
-        Panel3.Location = New Point(461, 504)
-        Panel3.Name = "Panel3"
-        Panel3.Size = New Size(491, 67)
-        Panel3.TabIndex = 16
+        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
+        PictureBox1.Location = New Point(457, 43)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(732, 410)
+        PictureBox1.TabIndex = 16
+        PictureBox1.TabStop = False
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
+        PictureBox2.Location = New Point(457, 459)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(732, 103)
+        PictureBox2.TabIndex = 17
+        PictureBox2.TabStop = False
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
+        PictureBox3.Location = New Point(450, 629)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(739, 83)
+        PictureBox3.TabIndex = 18
+        PictureBox3.TabStop = False
         ' 
         ' Form2
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(987, 584)
-        Controls.Add(Panel3)
+        ClientSize = New Size(1230, 724)
+        Controls.Add(PictureBox3)
+        Controls.Add(PictureBox2)
+        Controls.Add(PictureBox1)
         Controls.Add(TextBox3)
         Controls.Add(Button7)
         Controls.Add(Button6)
         Controls.Add(Button5)
         Controls.Add(Button4)
-        Controls.Add(Panel2)
-        Controls.Add(Panel1)
         Controls.Add(Button3)
         Controls.Add(Label3)
         Controls.Add(TextBox2)
@@ -211,6 +221,9 @@ Partial Class Form2
         Controls.Add(Label1)
         Name = "Form2"
         Text = "Form2"
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -224,12 +237,12 @@ Partial Class Form2
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents Panel2 As Panel
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents Panel3 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
 End Class
