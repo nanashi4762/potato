@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/ソリューション項目/">
+    <File Path="../../../../Downloads/Chat2026VB/Chat2026VB/Experiment.TcpSocket.dll" />
+  </Folder>
   <Project Path="potato/potato.vbproj" />
 </Solution>
