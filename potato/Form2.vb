@@ -21,4 +21,15 @@ Public Class Form2
             TextBox1.AppendText("接続に失敗しました: " & ex.Message & vbCrLf)
         End Try
     End Sub
+
+    Private Async Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Try
+            Dim msg As String = TextBox2.Text
+        Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
+            Dim stream = client.GetStream()
+            Await stream.WriteAsync(data, 0, data.Length)
+        Catch ex As Exception
+            TextBox1.AppendText("送信に失敗しました: " & ex.Message & vbCrLf)
+        End Try
+    End Sub
 End Class
