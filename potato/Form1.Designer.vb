@@ -27,7 +27,6 @@ Partial Class Form1
         Label1 = New Label()
         Button2 = New Button()
         ErrorProvider1 = New ErrorProvider(components)
-        Label3 = New Label()
         CType(ErrorProvider1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -94,6 +93,5 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents Button2 As Button
     Friend WithEvents ErrorProvider1 As ErrorProvider
-    Friend WithEvents Label3 As Label
 
 End Class
