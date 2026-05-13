@@ -42,8 +42,12 @@ Public Class Form3
             Dim data = Encoding.UTF8.GetBytes(msg)
 
             For Each c In clients
-                Dim s = c.GetStream()
-                Await s.WriteAsync(data, 0, data.Length)
+                Try
+                    Dim s = c.GetStream()
+                    Await s.WriteAsync(data, 0, data.Length)
+                Catch ex As Exception
+                    clients.Remove(c) ' 送信に失敗したクライアントをリストから削除
+                End Try
             Next
         End While
     End Sub
