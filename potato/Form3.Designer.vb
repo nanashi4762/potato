@@ -100,7 +100,7 @@ Partial Class Form3
         Controls.Add(Label1)
         Margin = New Padding(3, 2, 3, 2)
         Name = "Form3"
-        Text = "Form3"
+        Text = "a"
         ResumeLayout(False)
         PerformLayout()
     End Sub
