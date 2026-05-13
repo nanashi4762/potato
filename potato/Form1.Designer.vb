@@ -63,21 +63,11 @@ Partial Class Form1
         ' 
         ErrorProvider1.ContainerControl = Me
         ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Location = New Point(531, 91)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(59, 15)
-        Label3.TabIndex = 5
-        Label3.Text = "test( ´;ω;`)"
-        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(700, 337)
-        Controls.Add(Label3)
         Controls.Add(Button2)
         Controls.Add(Label1)
         Controls.Add(Button1)
