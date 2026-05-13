@@ -25,8 +25,6 @@ Partial Class Form1
         components = New ComponentModel.Container()
         Button1 = New Button()
         Label1 = New Label()
-        TextBox1 = New TextBox()
-        Label2 = New Label()
         Button2 = New Button()
         ErrorProvider1 = New ErrorProvider(components)
         CType(ErrorProvider1, ComponentModel.ISupportInitialize).BeginInit()
@@ -34,10 +32,10 @@ Partial Class Form1
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(358, 321)
-        Button1.Margin = New Padding(4)
+        Button1.Location = New Point(239, 151)
+        Button1.Margin = New Padding(3, 2, 3, 2)
         Button1.Name = "Button1"
-        Button1.Size = New Size(282, 128)
+        Button1.Size = New Size(197, 77)
         Button1.TabIndex = 0
         Button1.Text = "プレイする！"
         Button1.UseVisualStyleBackColor = True
@@ -45,37 +43,18 @@ Partial Class Form1
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(358, 129)
-        Label1.Margin = New Padding(4, 0, 4, 0)
+        Label1.Location = New Point(251, 91)
         Label1.Name = "Label1"
-        Label1.Size = New Size(249, 25)
+        Label1.Size = New Size(165, 15)
         Label1.TabIndex = 1
         Label1.Text = "かんたんブラックジャックfeat.ぽてち"
         ' 
-        ' TextBox1
-        ' 
-        TextBox1.Location = New Point(424, 228)
-        TextBox1.Margin = New Padding(4)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(215, 31)
-        TextBox1.TabIndex = 2
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Location = New Point(348, 231)
-        Label2.Margin = New Padding(4, 0, 4, 0)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(60, 25)
-        Label2.TabIndex = 3
-        Label2.Text = "鯖のIP"
-        ' 
         ' Button2
         ' 
-        Button2.Location = New Point(759, 319)
-        Button2.Margin = New Padding(4)
+        Button2.Location = New Point(477, 148)
+        Button2.Margin = New Padding(3, 2, 3, 2)
         Button2.Name = "Button2"
-        Button2.Size = New Size(162, 134)
+        Button2.Size = New Size(113, 80)
         Button2.TabIndex = 4
         Button2.Text = "管理者ぺーじ"
         Button2.UseVisualStyleBackColor = True
@@ -84,17 +63,25 @@ Partial Class Form1
         ' 
         ErrorProvider1.ContainerControl = Me
         ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(531, 91)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(59, 15)
+        Label3.TabIndex = 5
+        Label3.Text = "test( ´;ω;`)"
+        ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1000, 562)
+        ClientSize = New Size(700, 337)
+        Controls.Add(Label3)
         Controls.Add(Button2)
-        Controls.Add(Label2)
-        Controls.Add(TextBox1)
         Controls.Add(Label1)
         Controls.Add(Button1)
-        Margin = New Padding(4)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Form1"
         Text = "Form1"
         CType(ErrorProvider1, ComponentModel.ISupportInitialize).EndInit()
@@ -104,8 +91,6 @@ Partial Class Form1
 
     Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents Button2 As Button
     Friend WithEvents ErrorProvider1 As ErrorProvider
 

@@ -9,7 +9,6 @@
         moveScreen.Show()
     End Sub
 End Class
-
 Public Class Network
     Public Const port As Integer = 20000 ' ポート番号
     Public Shared enc As System.Text.Encoding = System.Text.Encoding.Default ' 文字コードに「Shift-JIS」を指定
