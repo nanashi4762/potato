@@ -63,9 +63,29 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property _22673935() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("22673935", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property potatochips_girl() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("potatochips_girl", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property tejina_trump_magic_woman() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("tejina_trump_magic_woman", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

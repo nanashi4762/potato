@@ -49,4 +49,8 @@ Public Class Form2
                             End Sub)
         End While
     End Sub
+
+    Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles PictureBox14.Click
+        ' ここにコードがなかったからエラーになっていた
+    End Sub
 End Class
