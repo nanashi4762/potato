@@ -22,12 +22,9 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        components = New ComponentModel.Container()
         Button1 = New Button()
         Label1 = New Label()
         Button2 = New Button()
-        ErrorProvider1 = New ErrorProvider(components)
-        CType(ErrorProvider1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Button1
@@ -59,13 +56,9 @@ Partial Class Form1
         Button2.Text = "管理者ぺーじ"
         Button2.UseVisualStyleBackColor = True
         ' 
-        ' ErrorProvider1
-        ' 
-        ErrorProvider1.ContainerControl = Me
-        ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(700, 337)
         Controls.Add(Button2)
@@ -74,7 +67,6 @@ Partial Class Form1
         Margin = New Padding(3, 2, 3, 2)
         Name = "Form1"
         Text = "Form1"
-        CType(ErrorProvider1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -82,6 +74,5 @@ Partial Class Form1
     Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Button2 As Button
-    Friend WithEvents ErrorProvider1 As ErrorProvider
 
 End Class
