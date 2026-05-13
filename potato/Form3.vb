@@ -6,6 +6,7 @@ Imports System.Text
 Public Class Form3
     Dim listener As TcpListener
     Dim clients As New List(Of TcpClient)
+    Dim playerNames As New List(Of String)
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -32,6 +33,46 @@ Public Class Form3
             If len = 0 Then Exit While
 
             Dim msg = Encoding.UTF8.GetString(buffer, 0, len)
+            If msg.StartsWith("JOIN:") Then
+                Dim name = msg.Substring(5)
+
+                If playerNames.Contains(name) Then
+                    Dim res = Encoding.UTF8.GetBytes("NAME_TAKEN")
+                    Await client.GetStream().WriteAsync(res, 0, res.Length)
+                Else
+                    playerNames.Add(name)
+
+                    Dim res = Encoding.UTF8.GetBytes("NAME_OK:" & name)
+                    Await client.GetStream().WriteAsync(res, 0, res.Length)
+
+                    Dim joinMsg As String = "SYSTEM:" & name & " が参加しました" & vbCrLf
+                    Dim joindata = Encoding.UTF8.GetBytes(joinMsg)
+
+                    WriteMessage(joinMsg)
+                    For Each c In clients.ToList()
+                        Try
+                            Dim s = c.GetStream()
+                            Await s.WriteAsync(joindata, 0, joindata.Length)
+                        Catch
+                            clients.Remove(c)
+                        End Try
+                    Next
+                    ' プレイヤー一覧を作る
+                    Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames)
+                    Dim listData = Encoding.UTF8.GetBytes(listMsg)
+
+                    For Each c In clients.ToList()
+                        Try
+                            Dim s = c.GetStream()
+                            Await s.WriteAsync(listData, 0, listData.Length)
+                        Catch
+                            clients.Remove(c)
+                        End Try
+                    Next
+
+                End If
+                Continue While
+            End If
 
             ' 表示
             TextBox1.Invoke(Sub()
