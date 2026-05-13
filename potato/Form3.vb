@@ -49,7 +49,19 @@ Public Class Form3
     End Sub
 
     Public Sub WriteMessage(ByVal msg As String)
-        TextBox1.Invoke(Sub() TextBox1.Text = TextBox1.Text & msg & vbCrLf)
+        TextBox1.Invoke(Sub() TextBox1.Text = TextBox1.Text & msg & vbCrLf) 'TextBox1にメッセージ表示
+    End Sub
+
+
+    Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim host = Dns.GetHostEntry(Dns.GetHostName())
+
+        For Each ip In host.AddressList '鯖のIPアドレスを表示(Wifiのはず)
+            If ip.AddressFamily = Sockets.AddressFamily.InterNetwork Then
+                TextBox2.Text = ip.ToString()
+                Exit For
+            End If
+        Next
     End Sub
 
 End Class
