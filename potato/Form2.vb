@@ -61,14 +61,6 @@ Public Class Form2
             If msg.StartsWith("PLAYERS:") Then
                 Dim list = msg.Substring(8)
                 Dim names = list.Split(","c)
-
-                TextBox5.Invoke(Sub()
-                                    TextBox5.Clear()
-                                    For Each n In names
-                                        TextBox5.AppendText(n & vbCrLf)
-                                    Next
-                                End Sub)
-                Continue While
             End If
 
             TextBox1.Invoke(Sub()
