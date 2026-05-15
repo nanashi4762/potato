@@ -78,6 +78,9 @@ Public Class Form2
         ComboBox1.Items.Add("ピザ")
         ComboBox1.Items.Add("バーベキュー")
         ComboBox1.Items.Add("わさび")
+
+        ComboBox2.Items.Add("観戦")
+        ComboBox2.Items.Add("参加")
     End Sub
 
     Private Async Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -92,4 +95,5 @@ Public Class Form2
 
         Await client.GetStream().WriteAsync(data, 0, data.Length)
     End Sub
+
 End Class
