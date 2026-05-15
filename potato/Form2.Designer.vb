@@ -45,6 +45,8 @@ Partial Class Form2
         PictureBox4 = New PictureBox()
         TextBox5 = New TextBox()
         Button1 = New Button()
+        ComboBox2 = New ComboBox()
+        Label5 = New Label()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -54,38 +56,35 @@ Partial Class Form2
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(26, 77)
+        Label1.Location = New Point(30, 103)
         Label1.Name = "Label1"
-        Label1.Size = New Size(60, 15)
+        Label1.Size = New Size(75, 20)
         Label1.TabIndex = 0
         Label1.Text = "ニックネーム"
         ' 
         ' ComboBox1
         ' 
         ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(112, 75)
-        ComboBox1.Margin = New Padding(3, 2, 3, 2)
+        ComboBox1.Location = New Point(128, 100)
         ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(133, 23)
+        ComboBox1.Size = New Size(151, 28)
         ComboBox1.TabIndex = 1
         ' 
         ' TextBox1
         ' 
         TextBox1.Cursor = Cursors.IBeam
-        TextBox1.Location = New Point(35, 246)
-        TextBox1.Margin = New Padding(3, 2, 3, 2)
+        TextBox1.Location = New Point(40, 328)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
-        TextBox1.Size = New Size(313, 212)
+        TextBox1.Size = New Size(357, 281)
         TextBox1.TabIndex = 2
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(266, 122)
-        Button2.Margin = New Padding(3, 2, 3, 2)
+        Button2.Location = New Point(304, 163)
         Button2.Name = "Button2"
-        Button2.Size = New Size(82, 22)
+        Button2.Size = New Size(94, 29)
         Button2.TabIndex = 4
         Button2.Text = "ブロック設定"
         Button2.UseVisualStyleBackColor = True
@@ -93,141 +92,134 @@ Partial Class Form2
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(26, 125)
+        Label2.Location = New Point(30, 167)
         Label2.Name = "Label2"
-        Label2.Size = New Size(76, 15)
+        Label2.Size = New Size(93, 20)
         Label2.TabIndex = 5
         Label2.Text = "プレイヤー一覧"
         ' 
         ' TextBox2
         ' 
         TextBox2.Cursor = Cursors.IBeam
-        TextBox2.Location = New Point(35, 484)
-        TextBox2.Margin = New Padding(3, 2, 3, 2)
+        TextBox2.Location = New Point(40, 645)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
         TextBox2.ScrollBars = ScrollBars.Vertical
-        TextBox2.Size = New Size(247, 44)
+        TextBox2.Size = New Size(282, 57)
         TextBox2.TabIndex = 6
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(35, 229)
+        Label3.Location = New Point(40, 305)
         Label3.Name = "Label3"
-        Label3.Size = New Size(40, 15)
+        Label3.Size = New Size(50, 20)
         Label3.TabIndex = 7
         Label3.Text = "チャット"
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(298, 484)
-        Button3.Margin = New Padding(3, 2, 3, 2)
+        Button3.Location = New Point(341, 645)
         Button3.Name = "Button3"
-        Button3.Size = New Size(61, 43)
+        Button3.Size = New Size(70, 57)
         Button3.TabIndex = 8
         Button3.Text = "送信"
         Button3.UseVisualStyleBackColor = True
         ' 
         ' Button4
         ' 
-        Button4.Location = New Point(403, 426)
-        Button4.Margin = New Padding(3, 2, 3, 2)
+        Button4.Location = New Point(600, 568)
         Button4.Name = "Button4"
-        Button4.Size = New Size(105, 40)
+        Button4.Size = New Size(120, 53)
         Button4.TabIndex = 11
         Button4.Text = "Hit"
         Button4.UseVisualStyleBackColor = True
         ' 
         ' Button5
         ' 
-        Button5.Location = New Point(514, 426)
-        Button5.Margin = New Padding(3, 2, 3, 2)
+        Button5.Location = New Point(726, 568)
         Button5.Name = "Button5"
-        Button5.Size = New Size(107, 40)
+        Button5.Size = New Size(122, 53)
         Button5.TabIndex = 12
         Button5.Text = "Stand"
         Button5.UseVisualStyleBackColor = True
         ' 
         ' Button6
         ' 
-        Button6.Location = New Point(825, 425)
-        Button6.Margin = New Padding(3, 2, 3, 2)
+        Button6.Location = New Point(985, 568)
         Button6.Name = "Button6"
-        Button6.Size = New Size(92, 40)
+        Button6.Size = New Size(105, 53)
         Button6.TabIndex = 13
         Button6.Text = "Bet"
         Button6.UseVisualStyleBackColor = True
         ' 
         ' Button7
         ' 
-        Button7.Location = New Point(959, 452)
-        Button7.Margin = New Padding(3, 2, 3, 2)
+        Button7.Location = New Point(1096, 603)
         Button7.Name = "Button7"
-        Button7.Size = New Size(48, 30)
+        Button7.Size = New Size(55, 40)
         Button7.TabIndex = 14
         Button7.Text = "いーと"
         Button7.UseVisualStyleBackColor = True
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(711, 436)
-        TextBox3.Margin = New Padding(3, 2, 3, 2)
+        TextBox3.Location = New Point(854, 581)
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(110, 23)
+        TextBox3.Size = New Size(125, 27)
         TextBox3.TabIndex = 15
+        TextBox3.Text = "1"
         ' 
         ' PictureBox1
         ' 
         PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(400, 32)
-        PictureBox1.Margin = New Padding(3, 2, 3, 2)
+        PictureBox1.Location = New Point(457, 43)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(640, 308)
+        PictureBox1.Size = New Size(731, 411)
         PictureBox1.TabIndex = 16
         PictureBox1.TabStop = False
         ' 
         ' PictureBox2
         ' 
         PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
-        PictureBox2.Location = New Point(400, 344)
-        PictureBox2.Margin = New Padding(3, 2, 3, 2)
+        PictureBox2.Location = New Point(457, 459)
         PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(640, 77)
+        PictureBox2.Size = New Size(731, 103)
         PictureBox2.TabIndex = 17
         PictureBox2.TabStop = False
         ' 
         ' PictureBox3
         ' 
         PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), Image)
-        PictureBox3.Location = New Point(403, 486)
-        PictureBox3.Margin = New Padding(3, 2, 3, 2)
+        PictureBox3.Location = New Point(461, 648)
         PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(671, 73)
+        PictureBox3.Size = New Size(767, 97)
         PictureBox3.TabIndex = 18
         PictureBox3.TabStop = False
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(26, 32)
+        Label4.Location = New Point(30, 43)
         Label4.Name = "Label4"
-        Label4.Size = New Size(63, 15)
+        Label4.Size = New Size(77, 20)
         Label4.TabIndex = 19
         Label4.Text = "サーバーのIP"
         ' 
         ' TextBox4
         ' 
-        TextBox4.Location = New Point(112, 29)
+        TextBox4.Location = New Point(128, 39)
+        TextBox4.Margin = New Padding(3, 4, 3, 4)
         TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(133, 23)
+        TextBox4.Size = New Size(151, 27)
         TextBox4.TabIndex = 20
         ' 
         ' Button8
         ' 
-        Button8.Location = New Point(266, 28)
+        Button8.Location = New Point(304, 37)
+        Button8.Margin = New Padding(3, 4, 3, 4)
         Button8.Name = "Button8"
-        Button8.Size = New Size(82, 23)
+        Button8.Size = New Size(94, 31)
         Button8.TabIndex = 21
         Button8.Text = "接続"
         Button8.UseVisualStyleBackColor = True
@@ -235,10 +227,10 @@ Partial Class Form2
         ' PictureBox4
         ' 
         PictureBox4.Image = My.Resources.Resources.potatochips_girl
-        PictureBox4.Location = New Point(1012, 424)
-        PictureBox4.Margin = New Padding(2)
+        PictureBox4.Location = New Point(1157, 565)
+        PictureBox4.Margin = New Padding(2, 3, 2, 3)
         PictureBox4.Name = "PictureBox4"
-        PictureBox4.Size = New Size(62, 62)
+        PictureBox4.Size = New Size(71, 83)
         PictureBox4.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox4.TabIndex = 22
         PictureBox4.TabStop = False
@@ -246,28 +238,48 @@ Partial Class Form2
         ' TextBox5
         ' 
         TextBox5.BackColor = SystemColors.ButtonHighlight
-        TextBox5.Location = New Point(112, 125)
-        TextBox5.Margin = New Padding(2)
+        TextBox5.Location = New Point(128, 167)
+        TextBox5.Margin = New Padding(2, 3, 2, 3)
         TextBox5.Multiline = True
         TextBox5.Name = "TextBox5"
         TextBox5.ReadOnly = True
-        TextBox5.Size = New Size(133, 86)
+        TextBox5.Size = New Size(151, 113)
         TextBox5.TabIndex = 23
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(266, 77)
+        Button1.Location = New Point(304, 103)
+        Button1.Margin = New Padding(3, 4, 3, 4)
         Button1.Name = "Button1"
-        Button1.Size = New Size(82, 23)
+        Button1.Size = New Size(94, 31)
         Button1.TabIndex = 24
         Button1.Text = "登録"
         Button1.UseVisualStyleBackColor = True
         ' 
+        ' ComboBox2
+        ' 
+        ComboBox2.FormattingEnabled = True
+        ComboBox2.Location = New Point(461, 610)
+        ComboBox2.Name = "ComboBox2"
+        ComboBox2.Size = New Size(124, 28)
+        ComboBox2.TabIndex = 25
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(461, 581)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(93, 20)
+        Label5.TabIndex = 26
+        Label5.Text = "参加ステータス"
+        ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1084, 556)
+        ClientSize = New Size(1239, 741)
+        Controls.Add(Label5)
+        Controls.Add(ComboBox2)
         Controls.Add(Button1)
         Controls.Add(TextBox5)
         Controls.Add(PictureBox4)
@@ -290,7 +302,6 @@ Partial Class Form2
         Controls.Add(TextBox1)
         Controls.Add(ComboBox1)
         Controls.Add(Label1)
-        Margin = New Padding(3, 2, 3, 2)
         Name = "Form2"
         Text = "Form2"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -323,4 +334,6 @@ Partial Class Form2
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label5 As Label
 End Class
