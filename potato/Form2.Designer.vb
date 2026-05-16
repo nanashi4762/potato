@@ -56,8 +56,7 @@ Partial Class Form2
         PictureBox17 = New PictureBox()
         TextBox5 = New TextBox()
         Button1 = New Button()
-        ComboBox2 = New ComboBox()
-        Label5 = New Label()
+        Button9 = New Button()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -478,22 +477,15 @@ Partial Class Form2
         Button1.Text = "登録"
         Button1.UseVisualStyleBackColor = True
         ' 
-        ' ComboBox2
+        ' Button9
         ' 
-        ComboBox2.FormattingEnabled = True
-        ComboBox2.Location = New Point(461, 610)
-        ComboBox2.Name = "ComboBox2"
-        ComboBox2.Size = New Size(124, 28)
-        ComboBox2.TabIndex = 25
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Location = New Point(461, 581)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(93, 20)
-        Label5.TabIndex = 26
-        Label5.Text = "参加ステータス"
+        Button9.Location = New Point(461, 572)
+        Button9.Margin = New Padding(3, 4, 3, 4)
+        Button9.Name = "Button9"
+        Button9.Size = New Size(104, 47)
+        Button9.TabIndex = 25
+        Button9.Text = "観戦中"
+        Button9.UseVisualStyleBackColor = True
         ' 
         ' Form2
         ' 
@@ -518,8 +510,7 @@ Partial Class Form2
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1239, 741)
-        Controls.Add(Label5)
-        Controls.Add(ComboBox2)
+        Controls.Add(Button9)
         Controls.Add(Button1)
         Controls.Add(TextBox5)
 >>>>>>> 071c0046e55cf12ec261eac8e7aba1664b487639
@@ -599,6 +590,5 @@ Partial Class Form2
 =======
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Button1 As Button
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents Label5 As Label
+    Friend WithEvents Button9 As Button
 End Class
