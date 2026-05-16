@@ -8,6 +8,8 @@ Public Class Form3
     Dim clients As New List(Of TcpClient)
     Dim playerNames As New List(Of String)
     Dim players As New Dictionary(Of TcpClient, Player)
+    Dim count As Integer = 30
+    Dim timer As New Timer()
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -104,6 +106,10 @@ Public Class Form3
     Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim host = Dns.GetHostEntry(Dns.GetHostName())
 
+        timer.Interval = 1000
+        AddHandler timer.Tick, AddressOf TimerTick
+        timer.Start()
+
         For Each ip In host.AddressList '鯖のIPアドレスを表示(Wifiのはず)
             If ip.AddressFamily = Sockets.AddressFamily.InterNetwork Then
                 TextBox2.Text = ip.ToString()
@@ -112,6 +118,26 @@ Public Class Form3
         Next
     End Sub
 
+    Private Sub TimerTick(sender As Object, e As EventArgs)
+        If count > 0 Then
+            count -= 1
+            TextBox3.Text = count
+        Else
+            timer.Stop()
+            CheckStart()
+            count = 30
+            timer.Start()
+        End If
+    End Sub
+
+    Private Sub CheckStart()
+        If players.Values.Any(Function(p) p.IsPlaying) Then
+            WriteMessage("ゲーム開始")
+            'StartGame()
+        Else
+            WriteMessage("参加者なし, ゲームを開始できません")
+        End If
+    End Sub
 End Class
 
 Class Player
