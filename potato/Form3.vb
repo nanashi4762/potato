@@ -46,7 +46,7 @@ Public Class Form3
                     playerNames.Add(name)
                     players(client) = New Player With {.Name = name}
 
-                    Dim res = Encoding.UTF8.GetBytes("NAME_OK:" & name)
+                    Dim res = Encoding.UTF8.GetBytes("NAME_OK:" & name & vbCrLf)
                     Await client.GetStream().WriteAsync(res, 0, res.Length)
 
                     Dim joinMsg As String = "SYSTEM:" & name & " が参加しました" & vbCrLf
@@ -63,7 +63,7 @@ Public Class Form3
                         End Try
                     Next
                     ' プレイヤー一覧を作る
-                    Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames)
+                    Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames) & vbCrLf
                     Dim listData = Encoding.UTF8.GetBytes(listMsg)
 
                     For Each c In clients.ToList()
