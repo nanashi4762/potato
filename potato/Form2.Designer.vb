@@ -83,7 +83,7 @@ Partial Class Form2
         ' 
         Button2.Location = New Point(304, 163)
         Button2.Name = "Button2"
-        Button2.Size = New Size(75, 23)
+        Button2.Size = New Size(93, 33)
         Button2.TabIndex = 4
         Button2.Text = "ブロック設定"
         Button2.UseVisualStyleBackColor = True
@@ -267,9 +267,9 @@ Partial Class Form2
         ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1239, 741)
+        ClientSize = New Size(1239, 762)
         Controls.Add(Button9)
         Controls.Add(Button1)
         Controls.Add(TextBox5)
@@ -293,7 +293,7 @@ Partial Class Form2
         Controls.Add(TextBox1)
         Controls.Add(ComboBox1)
         Controls.Add(Label1)
-        Margin = New Padding(2, 2, 2, 2)
+        Margin = New Padding(2)
         Name = "Form2"
         Text = "Form2"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
