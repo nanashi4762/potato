@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form2
     Inherits System.Windows.Forms.Form
 
     'フォームがコンポーネントの一覧をクリーンアップするために dispose をオーバーライドします。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form2
     'メモ: 以下のプロシージャは Windows フォーム デザイナーで必要です。
     'Windows フォーム デザイナーを使用して変更できます。  
     'コード エディターを使って変更しないでください。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
         Label1 = New Label()
@@ -66,7 +66,7 @@ Partial Class Form2
         ComboBox1.FormattingEnabled = True
         ComboBox1.Location = New Point(128, 100)
         ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(151, 28)
+        ComboBox1.Size = New Size(122, 28)
         ComboBox1.TabIndex = 1
         ' 
         ' TextBox1
@@ -76,14 +76,14 @@ Partial Class Form2
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
-        TextBox1.Size = New Size(357, 281)
+        TextBox1.Size = New Size(286, 226)
         TextBox1.TabIndex = 2
         ' 
         ' Button2
         ' 
         Button2.Location = New Point(304, 163)
         Button2.Name = "Button2"
-        Button2.Size = New Size(94, 29)
+        Button2.Size = New Size(75, 23)
         Button2.TabIndex = 4
         Button2.Text = "ブロック設定"
         Button2.UseVisualStyleBackColor = True
@@ -104,7 +104,7 @@ Partial Class Form2
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
         TextBox2.ScrollBars = ScrollBars.Vertical
-        TextBox2.Size = New Size(282, 57)
+        TextBox2.Size = New Size(226, 46)
         TextBox2.TabIndex = 6
         ' 
         ' Label3
@@ -120,7 +120,7 @@ Partial Class Form2
         ' 
         Button3.Location = New Point(341, 645)
         Button3.Name = "Button3"
-        Button3.Size = New Size(70, 57)
+        Button3.Size = New Size(56, 46)
         Button3.TabIndex = 8
         Button3.Text = "送信"
         Button3.UseVisualStyleBackColor = True
@@ -165,7 +165,7 @@ Partial Class Form2
         ' 
         TextBox3.Location = New Point(854, 581)
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(125, 27)
+        TextBox3.Size = New Size(101, 27)
         TextBox3.TabIndex = 15
         TextBox3.Text = "1"
         ' 
@@ -267,7 +267,7 @@ Partial Class Form2
         ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1239, 741)
         Controls.Add(Button9)
@@ -293,6 +293,7 @@ Partial Class Form2
         Controls.Add(TextBox1)
         Controls.Add(ComboBox1)
         Controls.Add(Label1)
+        Margin = New Padding(2, 2, 2, 2)
         Name = "Form2"
         Text = "Form2"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
