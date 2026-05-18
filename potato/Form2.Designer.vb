@@ -105,7 +105,7 @@ Partial Class Form2
         ' 
         ComboBox1.FormattingEnabled = True
         ComboBox1.Location = New Point(102, 80)
-        ComboBox1.Margin = New Padding(2, 2, 2, 2)
+        ComboBox1.Margin = New Padding(2)
         ComboBox1.Name = "ComboBox1"
         ComboBox1.Size = New Size(156, 28)
         ComboBox1.TabIndex = 1
@@ -114,7 +114,7 @@ Partial Class Form2
         ' 
         TextBox1.Cursor = Cursors.IBeam
         TextBox1.Location = New Point(32, 262)
-        TextBox1.Margin = New Padding(2, 2, 2, 2)
+        TextBox1.Margin = New Padding(2)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
@@ -124,7 +124,7 @@ Partial Class Form2
         ' Button2
         ' 
         Button2.Location = New Point(294, 166)
-        Button2.Margin = New Padding(2, 2, 2, 2)
+        Button2.Margin = New Padding(2)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 36)
         Button2.TabIndex = 4
@@ -144,7 +144,7 @@ Partial Class Form2
         ' 
         TextBox2.Cursor = Cursors.IBeam
         TextBox2.Location = New Point(32, 516)
-        TextBox2.Margin = New Padding(2, 2, 2, 2)
+        TextBox2.Margin = New Padding(2)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
         TextBox2.ScrollBars = ScrollBars.Vertical
@@ -164,7 +164,7 @@ Partial Class Form2
         ' Button3
         ' 
         Button3.Location = New Point(273, 516)
-        Button3.Margin = New Padding(2, 2, 2, 2)
+        Button3.Margin = New Padding(2)
         Button3.Name = "Button3"
         Button3.Size = New Size(56, 46)
         Button3.TabIndex = 8
@@ -403,7 +403,7 @@ Partial Class Form2
         ' TextBox5
         ' 
         TextBox5.Location = New Point(143, 166)
-        TextBox5.Margin = New Padding(2, 2, 2, 2)
+        TextBox5.Margin = New Padding(2)
         TextBox5.Multiline = True
         TextBox5.Name = "TextBox5"
         TextBox5.Size = New Size(123, 92)
@@ -462,7 +462,7 @@ Partial Class Form2
         ' Button4
         ' 
         Button4.Location = New Point(434, 815)
-        Button4.Margin = New Padding(2, 2, 2, 2)
+        Button4.Margin = New Padding(2)
         Button4.Name = "Button4"
         Button4.Size = New Size(110, 82)
         Button4.TabIndex = 41
@@ -472,7 +472,7 @@ Partial Class Form2
         ' Button5
         ' 
         Button5.Location = New Point(560, 815)
-        Button5.Margin = New Padding(2, 2, 2, 2)
+        Button5.Margin = New Padding(2)
         Button5.Name = "Button5"
         Button5.Size = New Size(102, 82)
         Button5.TabIndex = 42
@@ -481,8 +481,8 @@ Partial Class Form2
         ' 
         ' TextBox6
         ' 
-        TextBox6.Location = New Point(780, 868)
-        TextBox6.Margin = New Padding(2, 2, 2, 2)
+        TextBox6.Location = New Point(779, 857)
+        TextBox6.Margin = New Padding(2)
         TextBox6.Name = "TextBox6"
         TextBox6.Size = New Size(100, 27)
         TextBox6.TabIndex = 43
@@ -490,7 +490,7 @@ Partial Class Form2
         ' Button10
         ' 
         Button10.Location = New Point(906, 842)
-        Button10.Margin = New Padding(2, 2, 2, 2)
+        Button10.Margin = New Padding(2)
         Button10.Name = "Button10"
         Button10.Size = New Size(98, 51)
         Button10.TabIndex = 44
@@ -500,7 +500,7 @@ Partial Class Form2
         ' Button11
         ' 
         Button11.Location = New Point(1106, 857)
-        Button11.Margin = New Padding(2, 2, 2, 2)
+        Button11.Margin = New Padding(2)
         Button11.Name = "Button11"
         Button11.Size = New Size(106, 44)
         Button11.TabIndex = 45
@@ -511,7 +511,7 @@ Partial Class Form2
         ' 
         PictureBox20.Image = My.Resources.Resources.potatochips_girl
         PictureBox20.Location = New Point(1218, 811)
-        PictureBox20.Margin = New Padding(2, 2, 2, 2)
+        PictureBox20.Margin = New Padding(2)
         PictureBox20.Name = "PictureBox20"
         PictureBox20.Size = New Size(72, 90)
         PictureBox20.SizeMode = PictureBoxSizeMode.StretchImage
@@ -531,7 +531,7 @@ Partial Class Form2
         ' TextBox7
         ' 
         TextBox7.Location = New Point(782, 803)
-        TextBox7.Margin = New Padding(2, 2, 2, 2)
+        TextBox7.Margin = New Padding(2)
         TextBox7.Name = "TextBox7"
         TextBox7.ReadOnly = True
         TextBox7.Size = New Size(73, 27)
@@ -598,7 +598,7 @@ Partial Class Form2
         Controls.Add(TextBox1)
         Controls.Add(ComboBox1)
         Controls.Add(Label1)
-        Margin = New Padding(2, 2, 2, 2)
+        Margin = New Padding(2)
         Name = "Form2"
         Text = "Form2"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
