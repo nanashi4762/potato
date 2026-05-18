@@ -5,6 +5,7 @@ Public Class Form2
     Dim client As TcpClient
     Dim myName As String = ""
     Dim IsJoined As Boolean = False
+    Dim IsPlaying As Boolean = False
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
@@ -78,6 +79,7 @@ Public Class Form2
         ComboBox1.Items.Add("ピザ")
         ComboBox1.Items.Add("バーベキュー")
         ComboBox1.Items.Add("わさび")
+
     End Sub
 
     Private Async Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -93,4 +95,19 @@ Public Class Form2
         Await client.GetStream().WriteAsync(data, 0, data.Length)
     End Sub
 
+    Private Async Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        IsPlaying = Not IsPlaying
+        Dim mode As String
+        If IsPlaying Then
+            Button9.Text = "参加中"
+            mode = "参加"
+        Else
+            Button9.Text = "観戦中"
+            mode = "観戦"
+        End If
+
+        Dim msg As String = "MODE:" & mode
+        Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
+        Await client.GetStream().WriteAsync(data, 0, data.Length)
+    End Sub
 End Class
