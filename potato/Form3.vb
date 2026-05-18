@@ -10,6 +10,7 @@ Public Class Form3
     Dim players As New Dictionary(Of TcpClient, Player)
     Dim count As Integer = 30
     Dim timer As New Timer()
+    Dim gameState As String = "WAITING" ' ゲーム状態: WAITING, BETTING, PLAYING
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -52,8 +53,12 @@ Public Class Form3
                     Dim joinMsg As String = "SYSTEM:" & name & " が参加しました" & vbCrLf
                     Dim joindata = Encoding.UTF8.GetBytes(joinMsg)
                     WriteMessage("プレイヤー数: " & players.Count)
-
                     WriteMessage(joinMsg)
+
+                    Dim chipMsg As String = "CHIPS:" & players(client).Chips & vbCrLf
+                    Dim chipData = Encoding.UTF8.GetBytes(chipMsg)
+                    Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
+
                     For Each c In clients.ToList()
                         Try
                             Dim s = c.GetStream()
@@ -77,6 +82,33 @@ Public Class Form3
 
                 End If
                 Continue While
+            ElseIf msg.StartsWith("MODE:") Then
+                Dim mode = msg.Substring(5)
+
+                If players.ContainsKey(client) Then
+                    If mode = "参加" Then
+                        players(client).IsPlaying = True
+                    Else
+                        players(client).IsPlaying = False
+                    End If
+                    WriteMessage(players(client).Name & " は " & mode & " を選択")
+                End If
+                Continue While
+            ElseIf msg.StartsWith("BET:") Then
+                Dim value = Integer.Parse(msg.Substring(4))
+                Dim bet As Integer
+                If Integer.TryParse(value, bet) Then
+                    Dim player = players(client)
+                    If bet <= player.Chips AndAlso bet > 0 Then
+                        player.Bet = bet
+                        WriteMessage(player.Name & "が" & bet & " チップをベット")
+                        Dim res = Encoding.UTF8.GetBytes("BET_OK:" & bet & vbCrLf)
+                        Await client.GetStream().WriteAsync(res, 0, res.Length)
+                    Else
+                        Dim res = Encoding.UTF8.GetBytes("BET_FAIL" & vbCrLf)
+                        Await client.GetStream().WriteAsync(res, 0, res.Length)
+                    End If
+                End If
             End If
 
             ' 表示
@@ -123,21 +155,54 @@ Public Class Form3
             count -= 1
             TextBox3.Text = count
         Else
-            timer.Stop()
-            CheckStart()
-            count = 30
-            timer.Start()
+            If gameState = "BETTING" Then
+                WriteMessage("ベット終了&ゲーム開始")
+                gameState = "PLAYING"
+                StartGame()
+                timer.Stop()
+                count = 30
+            ElseIf gameState = "WAITING" Then
+                CheckStart()
+            End If
         End If
     End Sub
 
     Private Sub CheckStart()
         If players.Values.Any(Function(p) p.IsPlaying) Then
-            WriteMessage("ゲーム開始")
-            'StartGame()
+            WriteMessage("ベット開始")
+            gameState = "BETTING"
+            count = 30
         Else
-            WriteMessage("参加者なし, ゲームを開始できません")
+            WriteMessage("参加者なし")
+            count = 30
         End If
     End Sub
+
+    Private Async Sub StartGame()
+        Dim rnd As New Random()
+
+        For Each pair In players
+            Dim client = pair.Key
+            Dim player = pair.Value
+
+            If player.IsPlaying Then
+
+
+                player.Hand.Clear()
+
+                player.Hand.Add(rnd.Next(1, 12))
+                player.Hand.Add(rnd.Next(1, 12))
+
+                Dim msg As String = "HAND:" & String.Join(",", player.Hand)
+                Dim data = Encoding.UTF8.GetBytes(msg)
+
+                Await client.GetStream().WriteAsync(data, 0, data.Length)
+            End If
+        Next
+
+        WriteMessage("ゲーム開始（カード配布完了）")
+    End Sub
+
 End Class
 
 Class Player
@@ -145,4 +210,6 @@ Class Player
     Public Hand As New List(Of Integer)
     Public IsStand As Boolean = False
     Public IsPlaying As Boolean = False
+    Public Chips As Integer = 10
+    Public Bet As Integer = 0
 End Class

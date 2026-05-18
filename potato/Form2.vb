@@ -5,6 +5,7 @@ Public Class Form2
     Dim client As TcpClient
     Dim myName As String = ""
     Dim IsJoined As Boolean = False
+    Dim IsPlaying As Boolean = False
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
@@ -46,26 +47,50 @@ Public Class Form2
             If len = 0 Then Exit While
 
             Dim msg = Encoding.UTF8.GetString(buffer, 0, len)
+            Dim msgs = msg.Split({vbCrLf}, StringSplitOptions.RemoveEmptyEntries)
 
-            If msg.StartsWith("NAME_OK:") Then
-                Dim name = msg.Substring(8)
-                myName = name
-                IsJoined = True
-
-                TextBox1.Invoke(Sub()
-                                    TextBox1.AppendText("参加完了: " & name & vbCrLf)
-                                End Sub)
-                Continue While
-            End If
-
-            If msg.StartsWith("PLAYERS:") Then
-                Dim list = msg.Substring(8)
-                Dim names = list.Split(","c)
-            End If
-
-            TextBox1.Invoke(Sub()
-                                TextBox1.AppendText(msg & vbCrLf)
-                            End Sub)
+            For Each m In msgs
+                If m.StartsWith("NAME_OK:") Then
+                    Dim name = m.Substring(8)
+                    myName = name
+                    IsJoined = True
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText("参加完了: " & name & vbCrLf)
+                                    End Sub)
+                ElseIf m.StartsWith("PLAYERS:") Then
+                    Dim list = m.Substring(8)
+                    Dim names = list.Split(","c)
+                    TextBox5.Invoke(Sub()
+                                        TextBox5.Clear()
+                                        For Each n In names
+                                            TextBox5.AppendText(n & vbCrLf)
+                                        Next
+                                    End Sub)
+                ElseIf m.StartsWith("SYSTEM:") Then
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText(m & vbCrLf)
+                                    End Sub)
+                ElseIf m.StartsWith("CHIPS:") Then
+                    Dim chip = m.Substring(6)
+                    TextBox7.Invoke(Sub()
+                                        TextBox7.Text = chip
+                                    End Sub)
+                ElseIf m.StartsWith("BET_OK:") Then
+                    Dim amount = m.Substring(7)
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText("ベット: " & amount & vbCrLf)
+                                    End Sub)
+                ElseIf m.StartsWith("BET_FAIL") Then
+                    Dim reason = m.Substring(8)
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText("チップが不足しています！" & vbCrLf)
+                                    End Sub)
+                Else
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText(m & vbCrLf)
+                                    End Sub)
+                End If
+            Next
         End While
     End Sub
 
@@ -78,6 +103,7 @@ Public Class Form2
         ComboBox1.Items.Add("ピザ")
         ComboBox1.Items.Add("バーベキュー")
         ComboBox1.Items.Add("わさび")
+
     End Sub
 
     Private Async Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -93,4 +119,30 @@ Public Class Form2
         Await client.GetStream().WriteAsync(data, 0, data.Length)
     End Sub
 
+    Private Async Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        IsPlaying = Not IsPlaying
+        Dim mode As String
+        If IsPlaying Then
+            Button9.Text = "参加中"
+            mode = "参加"
+        Else
+            Button9.Text = "観戦中"
+            mode = "観戦"
+        End If
+
+        Dim msg As String = "MODE:" & mode
+        Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
+        Await client.GetStream().WriteAsync(data, 0, data.Length)
+    End Sub
+
+    Private Async Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Dim betAmount As Integer
+        If Integer.TryParse(TextBox6.Text, betAmount) Then
+            Dim msg As String = "BET:" & betAmount
+            Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
+            Await client.GetStream().WriteAsync(data, 0, data.Length)
+        Else
+            TextBox1.AppendText("数字を入力してください" & vbCrLf)
+        End If
+    End Sub
 End Class
