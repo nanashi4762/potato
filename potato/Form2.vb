@@ -10,6 +10,7 @@ Public Class Form2
     Dim blockList As New List(Of String)()
     Dim canbet As Boolean = False
     Dim recvBuffer As String = ""
+    Dim playerOrder As New List(Of String)
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         ' ComboBox2 で選ばれている名前を取得
@@ -76,6 +77,8 @@ Public Class Form2
                                         TextBox1.AppendText("参加完了: " & name & vbCrLf)
                                     End Sub)
                 ElseIf m.StartsWith("PLAYER_LIST:") Then
+                    Dim list = m.Substring(12)
+                    playerOrder = list.Split(","c).ToList()
                     Dim names As String() = m.Replace("PLAYER_LIST:", "").Split(","c)
 
                     ' ここで「自分の名前」を定義してください（もし変数があればそれを使ってください）
@@ -168,17 +171,56 @@ Public Class Form2
                                     End Sub)
                     Continue For
                 ElseIf m.StartsWith("HAND:") Then
-                    Dim hand = m.Substring(5)
-                    Dim cards = hand.Split(","c)
-                    For i = 0 To cards.Length - 1
-                        PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
-                        PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
-                        If i = 2 Then
-                            PictureBox6.Image = Image.FromFile(cards(2) & ".bmp")
-                        ElseIf i = 3 Then
-                            PictureBox7.Image = Image.FromFile(cards(3) & ".bmp")
-                        End If
-                    Next
+                    Dim parts = m.Split(":"c)
+                    Dim name = parts(1)
+                    Dim cards = parts(2).Split(","c)
+
+                    Dim index = playerOrder.IndexOf(name)
+                    If index = -1 Then Return
+
+                    If name = myName Then
+                        For i = 0 To cards.Length - 1
+                            PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
+                            PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
+                            If i = 2 Then
+                                PictureBox6.Image = Image.FromFile(cards(2) & ".bmp")
+                            ElseIf i = 3 Then
+                                PictureBox7.Image = Image.FromFile(cards(3) & ".bmp")
+                            End If
+                        Next
+                    End If
+
+                    If index = 0 Then
+                        For i = 0 To cards.Length - 1
+                            PictureBox9.Image = Image.FromFile(cards(0) & ".bmp")
+                            PictureBox8.Image = Image.FromFile(cards(1) & ".bmp")
+                            If i = 2 Then
+                                PictureBox11.Image = Image.FromFile(cards(2) & ".bmp")
+                            ElseIf i = 3 Then
+                                PictureBox10.Image = Image.FromFile(cards(3) & ".bmp")
+                            End If
+                        Next
+                    ElseIf index = 1 Then
+                        For i = 0 To cards.Length - 1
+                            PictureBox23.Image = Image.FromFile(cards(0) & ".bmp")
+                            PictureBox17.Image = Image.FromFile(cards(1) & ".bmp")
+                            If i = 2 Then
+                                PictureBox16.Image = Image.FromFile(cards(2) & ".bmp")
+                            ElseIf i = 3 Then
+                                PictureBox13.Image = Image.FromFile(cards(3) & ".bmp")
+                            End If
+                        Next
+                    ElseIf index = 2 Then
+                        For i = 0 To cards.Length - 1
+                            PictureBox27.Image = Image.FromFile(cards(0) & ".bmp")
+                            PictureBox26.Image = Image.FromFile(cards(1) & ".bmp")
+                            If i = 2 Then
+                                PictureBox25.Image = Image.FromFile(cards(2) & ".bmp")
+                            ElseIf i = 3 Then
+                                PictureBox24.Image = Image.FromFile(cards(3) & ".bmp")
+                            End If
+                        Next
+                    End If
                     Continue For
                 ElseIf m = "BET_START" Then
                     PictureBox28.Image = Nothing
@@ -186,6 +228,9 @@ Public Class Form2
                                         TextBox1.AppendText("SYSTEM:ベットフェーズが始まりました！" & vbCrLf)
                                     End Sub)
                     canbet = True
+                    Button9.Invoke(Sub()
+                                       Button9.Enabled = False
+                                   End Sub)
                     Button10.Invoke(Sub()
                                         Button10.Enabled = True
                                     End Sub)
@@ -259,14 +304,44 @@ Public Class Form2
                 ElseIf m = "CLEAR_HAND" Then
                     PictureBox15.Image = Nothing
                     PictureBox14.Image = Nothing
-                    PictureBox13.Image = Nothing
-                    PictureBox12.Image = Nothing
-
+                    PictureBox6.Image = Nothing
+                    PictureBox7.Image = Nothing
                     PictureBox19.Image = Nothing
                     PictureBox18.Image = Nothing
+                    PictureBox22.Image = Nothing
+                    PictureBox21.Image = Nothing
+                    PictureBox11.Image = Nothing
+                    PictureBox10.Image = Nothing
+                    PictureBox9.Image = Nothing
+                    PictureBox8.Image = Nothing
+                    PictureBox23.Image = Nothing
                     PictureBox17.Image = Nothing
                     PictureBox16.Image = Nothing
-
+                    PictureBox13.Image = Nothing
+                    PictureBox27.Image = Nothing
+                    PictureBox26.Image = Nothing
+                    PictureBox25.Image = Nothing
+                    PictureBox24.Image = Nothing
+                    Continue For
+                ElseIf m.StartsWith("FORCE_LEAVE:") Then
+                    Dim name = m.Substring(12)
+                    If name = myName Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("ベットされなかったため観戦状態になります" & vbCrLf)
+                                        End Sub)
+                        Button9.Text = "観戦中"
+                        Button10.Invoke(Sub()
+                                            Button10.Enabled = False
+                                        End Sub)
+                    End If
+                    Continue For
+                ElseIf m = "WAITING" Then
+                    Button9.Invoke(Sub()
+                                       Button9.Enabled = True
+                                   End Sub)
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText("次のゲームを準備中..." & vbCrLf)
+                                    End Sub)
                     Continue For
                 Else
                     If m.Contains(":") Then
