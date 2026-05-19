@@ -217,6 +217,34 @@ Public Class Form2
                                   End If
                               End Sub)
                     Continue For
+                ElseIf m.StartsWith("RESULT:") Then
+                    Dim result = m.Substring(7)
+                    If result = "WIN" Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("SYSTEM:あなたの勝ちです！" & vbCrLf)
+                                        End Sub)
+                    ElseIf result = "LOSE" Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("SYSTEM:あなたの負けです…" & vbCrLf)
+                                        End Sub)
+                    ElseIf result = "DRAW" Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("SYSTEM:引き分けです" & vbCrLf)
+                                        End Sub)
+                    End If
+                    Continue For
+                ElseIf m = "CLEAR_HAND" Then
+                    PictureBox15.Image = Nothing
+                    PictureBox14.Image = Nothing
+                    PictureBox13.Image = Nothing
+                    PictureBox12.Image = Nothing
+
+                    PictureBox19.Image = Nothing
+                    PictureBox18.Image = Nothing
+                    PictureBox17.Image = Nothing
+                    PictureBox16.Image = Nothing
+
+                    Continue While
                 Else
                     If m.Contains(":") Then
                         Dim speaker As String = m.Split(":"c)(0)

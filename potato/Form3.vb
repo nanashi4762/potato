@@ -267,6 +267,12 @@ Public Class Form3
     End Sub
 
     Private Async Sub CheckStart()
+        Dim clearMsg As String = "CLEAR_HAND" & vbCrLf
+        Dim clearData = Encoding.UTF8.GetBytes(clearMsg)
+
+        For Each c In clients.ToList()
+            Await c.GetStream().WriteAsync(clearData, 0, clearData.Length)
+        Next
         If players.Values.Any(Function(p) p.IsPlaying) Then
             WriteMessage("ベット開始")
             gameState = "BETTING"
@@ -373,18 +379,28 @@ Public Class Form3
         Next
     End Function
 
-    Private Function GetScore(hand As List(Of String)) As Integer '手札計算
+    Private Function GetScore(hand As List(Of String)) As Integer
         Dim total As Integer = 0
+        Dim aceCount As Integer = 0
 
         For Each card In hand
             Dim num As Integer = Integer.Parse(card.Substring(0, 2))
 
-            If num >= 10 Then
+            If num = 0 Then
+                total += 11
+                aceCount += 1
+            ElseIf num >= 10 Then
                 total += 10
             Else
                 total += num + 1
             End If
         Next
+
+        ' 21超えてたらAを1に変換
+        While total > 21 AndAlso aceCount > 0
+            total -= 10
+            aceCount -= 1
+        End While
 
         Return total
     End Function
@@ -421,11 +437,50 @@ Public Class Form3
             If dealerHand.Count > 3 Then
                 Exit While
             End If
+            If GetScore(dealerHand) > 21 Then
+                WriteMessage("ディーラーはバーストしました")
+                Dim bastMsg = Encoding.UTF8.GetBytes("SYSTEM:ディーラーはバーストしました！" & vbCrLf)
+                For Each c In clients
+                    Await c.GetStream().WriteAsync(bastMsg, 0, bastMsg.Length)
+                Next
+                Exit While
+            End If
         End While
 
         WriteMessage("ディーラー終了")
+        Await Result()
     End Function
 
+    Private Async Function Result() As Task
+
+        Dim dealerScore = GetScore(dealerHand)
+
+        For Each pair In players
+            Dim player = pair.Value
+            Dim score = GetScore(player.Hand)
+            Dim res As String = ""
+
+            If score > 21 OrElse score < dealerScore Then
+                res = "LOSE"
+            ElseIf score > dealerScore OrElse dealerScore > 21 Then
+                res = "WIN"
+                player.Chips += player.Bet * 2
+            Else
+                res = "DRAW"
+                player.Chips += player.Bet
+            End If
+            Dim resMsg As String = "RESULT:" & res & vbCrLf & "CHIPS:" & player.Chips & vbCrLf
+            Dim resData = Encoding.UTF8.GetBytes(resMsg)
+            Try
+                Await pair.Key.GetStream().WriteAsync(resData, 0, resData.Length)
+            Catch
+                clients.Remove(pair.Key)
+            End Try
+            player.Bet = 0
+            gameState = "WAITING"
+            timer.Start()
+        Next
+    End Function
 End Class
 
 Class Player
