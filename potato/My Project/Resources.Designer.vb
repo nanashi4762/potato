@@ -73,6 +73,16 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property BJタイトル() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BJタイトル", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property potatochips_girl() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("potatochips_girl", resourceCulture)
