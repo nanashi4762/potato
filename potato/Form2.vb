@@ -118,9 +118,20 @@ Public Class Form2
                                     End Sub)
                     Continue While
                 ElseIf m.StartsWith("BET_OK:") Then
-                    Dim amount = m.Substring(7)
+                    Dim amountStr = m.Substring(7)
+                    Dim amount As Integer = Integer.Parse(amountStr)
+
                     TextBox1.Invoke(Sub()
-                                        TextBox1.AppendText(amount & "チップをベットしました" & vbCrLf)
+                                        TextBox1.AppendText(amount & "枚のポテチをベットしました" & vbCrLf)
+
+                                        ' ★画像を表示する処理
+                                        Dim imgName As String = GetPotatoImage(amount)
+                                        If imgName <> "" Then
+                                            ' 念のためファイルが存在するかチェックすると安全です
+                                            If System.IO.File.Exists(imgName) Then
+                                                PictureBox28.Image = Image.FromFile(imgName)
+                                            End If
+                                        End If
                                     End Sub)
                     canbet = False
                     Button10.Invoke(Sub()
@@ -139,6 +150,7 @@ Public Class Form2
                     PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
                     Continue While
                 ElseIf m = "BET_START" Then
+                    PictureBox28.Image = Nothing
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("ベットフェーズが始まりました！" & vbCrLf)
                                     End Sub)
@@ -240,4 +252,17 @@ Public Class Form2
             TextBox1.AppendText("つまみ食いに失敗しました: " & ex.Message & vbCrLf)
         End Try
     End Sub
+
+    ' ベット額に応じた画像名を返す関数
+    Private Function GetPotatoImage(betAmount As Integer) As String
+        If betAmount = 1 Then
+            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\1枚.png"
+        ElseIf betAmount >= 2 AndAlso betAmount <= 9 Then
+            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\2辛.png"
+        ElseIf betAmount >= 10 Then
+            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\potatochips.png"
+        Else
+            Return ""            ' 画像なし
+        End If
+    End Function
 End Class
