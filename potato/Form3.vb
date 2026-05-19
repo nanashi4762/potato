@@ -349,6 +349,35 @@ Public Class Form3
             End Try
         Next
         WriteMessage("ゲーム開始（カード配布完了）")
+
+        ' ★【追加】ディーラーが最初に引いた時点でブラックジャック（BJ）だった場合の特殊ルート
+        If IsBlackjack(dealerHand) Then
+            WriteMessage("【特殊】ディーラーがナチュラルブラックジャックです！")
+
+            ' 全員にディーラーがBJだったことをアナウンス
+            Dim bjNoticeMsg As String = "SYSTEM:ディーラーはブラックジャックです！" & vbCrLf
+            Dim bjNoticeData = Encoding.UTF8.GetBytes(bjNoticeMsg)
+            For Each c In clients
+                Try
+                    Await c.GetStream().WriteAsync(bjNoticeData, 0, bjNoticeData.Length)
+                Catch
+                End Try
+            Next
+
+            ' ※この時点で、各プレイヤーが最初に配られた2枚でBJかどうかも判定しておく必要があります
+            ' なぜなら、SendTurnを通らないため、ここでフラグを立てておかないとResultで引き分けにできないからです
+            For Each pair In players
+                If pair.Value.IsPlaying AndAlso IsBlackjack(pair.Value.Hand) Then
+                    pair.Value.IsBJ = True
+                End If
+            Next
+
+            ' プレイヤーのターン(SendTurn)やディーラーの追加ドロー(DealerPlay)を全てスキップして、即リザルトへ！
+            Await Result()
+            Return
+        End If
+
+        ' ↓ ディーラーがBJじゃなければ、通常通りプレイヤーのターンへ移行
         Await SendTurn()
     End Function
 
@@ -494,24 +523,42 @@ Public Class Form3
     Private Async Function Result() As Task
 
         Dim dealerScore = GetScore(dealerHand)
+        Dim dealerIsBJ As Boolean = IsBlackjack(dealerHand) ' ★ディーラーがBJかどうかを変数に持つ
 
         For Each pair In players
             Dim player = pair.Value
+
+            ' 参加していないプレイヤーはスキップ
+            If Not player.IsPlaying Then Continue For
+
             Dim score = GetScore(player.Hand)
             Dim res As String = ""
 
-            If player.IsBJ Then
-                res = "WIN"
-                player.Chips += player.Bet * 2.5
-            ElseIf score > 21 OrElse score < dealerScore Then
-                res = "LOSE"
-            ElseIf score > dealerScore OrElse dealerScore > 21 Then
-                res = "WIN"
-                player.Chips += player.Bet * 2
+            ' ★勝敗判定のロジックを正確にルート分け
+            If dealerIsBJ Then
+                ' ① ディーラーがBJのとき
+                If player.IsBJ Then
+                    res = "DRAW"        ' 両方BJなら引き分け（チップはそのまま戻る）
+                    player.Chips += player.Bet
+                Else
+                    res = "LOSE"        ' それ以外はプレイヤーの負け
+                End If
             Else
-                res = "DRAW"
-                player.Chips += player.Bet
+                ' ② ディーラーがBJではないとき（通常ルール）
+                If player.IsBJ Then
+                    res = "WIN"         ' プレイヤーだけがBJなら文句なしの勝ち（2.5倍）
+                    player.Chips += player.Bet * 2.5
+                ElseIf score > 21 OrElse (score < dealerScore AndAlso dealerScore <= 21) Then
+                    res = "LOSE"        ' バーストした、またはディーラーよりスコアが低い
+                ElseIf score > dealerScore OrElse dealerScore > 21 Then
+                    res = "WIN"         ' ディーラーよりスコアが高い、またはディーラーがバースト
+                    player.Chips += player.Bet * 2
+                Else
+                    res = "DRAW"        ' 通常の数字での引き分け
+                    player.Chips += player.Bet
+                End If
             End If
+
             Dim resMsg As String = "RESULT:" & res & vbCrLf & "CHIPS:" & player.Chips & vbCrLf
             Dim resData = Encoding.UTF8.GetBytes(resMsg)
             Try
@@ -519,6 +566,8 @@ Public Class Form3
             Catch
                 clients.Remove(pair.Key)
             End Try
+
+            ' ベットをリセット
             player.Bet = 0
             gameState = "WAITING"
             Await Task.Delay(3000)
@@ -534,6 +583,10 @@ Public Class Form3
             Next
             timer.Start()
         Next
+
+        gameState = "WAITING"
+        Await Task.Delay(3000)
+        timer.Start()
     End Function
 
     Private Function IsBlackjack(hand As List(Of String)) As Boolean

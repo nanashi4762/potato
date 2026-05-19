@@ -203,21 +203,30 @@
 	  <None Update="BACK.bmp">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="images\1枚.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="images\2辛.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="images\potatochips.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
 	  
-    <None Update="Resources\1枚.png">
+    <None Update="1枚.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 	  
-    <None Update="Resources\2辛.png">
+    <None Update="2辛.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 	  
-    <None Update="Resources\potatochips.png">
+    <None Update="potatochips.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
