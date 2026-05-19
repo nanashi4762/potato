@@ -7,6 +7,7 @@ Public Class Form2
     Dim IsJoined As Boolean = False
     Dim IsPlaying As Boolean = False
     Dim blockList As New List(Of String)()
+    Dim canbet As Boolean = False
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         ' ComboBox2 で選ばれている名前を取得
@@ -95,26 +96,43 @@ Public Class Form2
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(m & vbCrLf)
                                     End Sub)
+                    Continue While
                 ElseIf m.StartsWith("CHIPS:") Then
                     Dim chip = m.Substring(6)
                     TextBox7.Invoke(Sub()
                                         TextBox7.Text = chip
                                     End Sub)
+                    Continue While
                 ElseIf m.StartsWith("BET_OK:") Then
                     Dim amount = m.Substring(7)
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(amount & "チップをベットしました" & vbCrLf)
                                     End Sub)
+                    canbet = False
+                    Button10.Invoke(Sub()
+                                        Button10.Enabled = False
+                                    End Sub)
+                    Continue While
                 ElseIf m.StartsWith("BET_FAIL") Then
                     Dim reason = m.Substring(8)
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
+                    Continue While
                 ElseIf m.StartsWith("HAND:") Then
                     Dim hand = m.Substring(5)
                     Dim cards = hand.Split(","c)
                     PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
                     PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
+                    Continue While
+                ElseIf m = "BET_START" Then
+                    TextBox1.Invoke(Sub()
+                                        TextBox1.AppendText("ベットフェーズが始まりました！" & vbCrLf)
+                                    End Sub)
+                    canbet = True
+                    Button10.Invoke(Sub()
+                                        Button10.Enabled = True
+                                    End Sub)
                     Continue While
                 Else
                     ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
@@ -179,6 +197,9 @@ Public Class Form2
 
     Private Async Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         Dim betAmount As Integer
+        If Not canbet Then
+            Return
+        End If
         If Integer.TryParse(TextBox6.Text, betAmount) Then
             Dim msg As String = "BET:" & betAmount
             Dim data As Byte() = Encoding.UTF8.GetBytes(msg)

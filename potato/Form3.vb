@@ -176,10 +176,20 @@ Public Class Form3
         End If
     End Sub
 
-    Private Sub CheckStart()
+    Private Async Sub CheckStart()
         If players.Values.Any(Function(p) p.IsPlaying) Then
             WriteMessage("ベット開始")
             gameState = "BETTING"
+            Dim msg = "BET_START" & vbCrLf
+            Dim data = Encoding.UTF8.GetBytes(msg)
+            For Each c In clients
+                Try
+                    Dim s = c.GetStream()
+                    Await s.WriteAsync(data, 0, data.Length)
+                Catch ex As Exception
+                    clients.Remove(c)
+                End Try
+            Next
             count = 30
         Else
             WriteMessage("参加者なし")
