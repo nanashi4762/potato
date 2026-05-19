@@ -110,6 +110,12 @@ Public Class Form2
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
+                ElseIf m.StartsWith("HAND:") Then
+                    Dim hand = m.Substring(5)
+                    Dim cards = hand.Split(","c)
+                    PictureBox15.Image = Image.FromFile("cards/" & cards(0) & ".bmp")
+                    PictureBox14.Image = Image.FromFile("cards/" & cards(1) & ".bmp")
+                    Continue While
                 Else
                     ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
                     If m.Contains(":") Then
