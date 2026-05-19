@@ -6,9 +6,24 @@ Public Class Form2
     Dim myName As String = ""
     Dim IsJoined As Boolean = False
     Dim IsPlaying As Boolean = False
+    Dim blockList As New List(Of String)()
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        ' ComboBox2 で選ばれている名前を取得
+        Dim targetName As String = ComboBox2.Text
 
+        If targetName = "" Then
+            MessageBox.Show("ブロックするプレイヤーを選択してください")
+            Return
+        End If
+
+        ' すでにブロックリストに入っていないか確認して追加
+        If Not blockList.Contains(targetName) Then
+            blockList.Add(targetName)
+            TextBox1.AppendText("【システム】" & targetName & " をブロックしました" & vbCrLf)
+        Else
+            TextBox1.AppendText("【システム】" & targetName & " はすでにブロックしています" & vbCrLf)
+        End If
     End Sub
 
     Private Async Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
@@ -60,12 +75,22 @@ Public Class Form2
                 ElseIf m.StartsWith("PLAYERS:") Then
                     Dim list = m.Substring(8)
                     Dim names = list.Split(","c)
-                    TextBox5.Invoke(Sub()
-                                        TextBox5.Clear()
-                                        For Each n In names
-                                            TextBox5.AppendText(n & vbCrLf)
-                                        Next
-                                    End Sub)
+                    ' TextBox5 ではなく ComboBox2 に名前をセットする
+                    ComboBox2.Invoke(Sub()
+
+                                         ComboBox2.Items.Clear()
+                                         For Each n In names
+                                             ' 自分以外のプレイヤーだけをリストに追加（自分をブロックしないように）
+                                             If n <> myName Then
+                                                 ComboBox2.Items.Add(n)
+                                             End If
+                                         Next
+                                         ' 最初の人を自動で選択状態にする（空白対策）
+                                         If ComboBox2.Items.Count > 0 Then
+                                             ComboBox2.SelectedIndex = 0
+                                         End If
+                                     End Sub)
+
                 ElseIf m.StartsWith("SYSTEM:") Then
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(m & vbCrLf)
@@ -86,6 +111,17 @@ Public Class Form2
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
                 Else
+                    ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
+                    If m.Contains(":") Then
+                        Dim speaker As String = m.Split(":"c)(0) ' 送信者の名前を抜き出す
+
+                        ' もしブロックリストに入っている名前なら、表示せずにスルーして次のループへ
+                        If blockList.Contains(speaker) Then
+                            Continue For
+                        End If
+                    End If
+
+                    ' ブロックされていなければ普通に表示
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(m & vbCrLf)
                                     End Sub)
