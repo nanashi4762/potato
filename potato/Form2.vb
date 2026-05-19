@@ -343,14 +343,17 @@ Public Class Form2
 
     ' ベット額に応じた画像名を返す関数
     Private Function GetPotatoImage(betAmount As Integer) As String
+        ' 実行ファイルと同じ場所にある「images」フォルダを指定する
+        Dim imgDir As String = System.IO.Path.Combine(Application.StartupPath, "images")
+
         If betAmount = 1 Then
-            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\1枚.png"
+            Return System.IO.Path.Combine(imgDir, "1枚.png")
         ElseIf betAmount >= 2 AndAlso betAmount <= 9 Then
-            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\2辛.png"
+            Return System.IO.Path.Combine(imgDir, "2辛.png")
         ElseIf betAmount >= 10 Then
-            Return "C:\Users\yoush\source\repos\nanashi4762\potato\potato\Resources\potatochips.png"
+            Return System.IO.Path.Combine(imgDir, "potatochips.png")
         Else
-            Return ""            ' 画像なし
+            Return ""
         End If
     End Function
 
