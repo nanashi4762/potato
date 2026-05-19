@@ -115,7 +115,7 @@ Partial Class Form2
         Label1.Location = New Point(32, 125)
         Label1.Margin = New Padding(2, 0, 2, 0)
         Label1.Name = "Label1"
-        Label1.Size = New Size(92, 25)
+        Label1.Size = New Size(75, 20)
         Label1.TabIndex = 0
         Label1.Text = "ニックネーム"
         ' 
@@ -155,7 +155,7 @@ Partial Class Form2
         Label2.Location = New Point(14, 195)
         Label2.Margin = New Padding(5, 0, 5, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(114, 25)
+        Label2.Size = New Size(93, 20)
         Label2.TabIndex = 5
         Label2.Text = "プレイヤー一覧"
         ' 
@@ -176,7 +176,7 @@ Partial Class Form2
         Label3.Location = New Point(32, 272)
         Label3.Margin = New Padding(2, 0, 2, 0)
         Label3.Name = "Label3"
-        Label3.Size = New Size(62, 25)
+        Label3.Size = New Size(50, 20)
         Label3.TabIndex = 7
         Label3.Text = "チャット"
         ' 
@@ -256,7 +256,7 @@ Partial Class Form2
         Label4.Location = New Point(32, 49)
         Label4.Margin = New Padding(5, 0, 5, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(96, 25)
+        Label4.Size = New Size(77, 20)
         Label4.TabIndex = 19
         Label4.Text = "サーバーのIP"
         ' 
@@ -396,7 +396,7 @@ Partial Class Form2
         Label5.Location = New Point(38, 702)
         Label5.Margin = New Padding(2, 0, 2, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(99, 25)
+        Label5.Size = New Size(81, 20)
         Label5.TabIndex = 38
         Label5.Text = "現在の状態"
         ' 
@@ -486,7 +486,7 @@ Partial Class Form2
         Label6.Location = New Point(897, 904)
         Label6.Margin = New Padding(2, 0, 2, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(103, 25)
+        Label6.Size = New Size(83, 20)
         Label6.TabIndex = 47
         Label6.Text = "現在のチップ"
         ' 
@@ -505,7 +505,7 @@ Partial Class Form2
         Label7.Location = New Point(1120, 904)
         Label7.Margin = New Padding(2, 0, 2, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(30, 25)
+        Label7.Size = New Size(24, 20)
         Label7.TabIndex = 49
         Label7.Text = "枚"
         ' 
@@ -532,7 +532,7 @@ Partial Class Form2
         Label8.Location = New Point(46, 773)
         Label8.Margin = New Padding(2, 0, 2, 0)
         Label8.Name = "Label8"
-        Label8.Size = New Size(78, 25)
+        Label8.Size = New Size(64, 20)
         Label8.TabIndex = 52
         Label8.Text = "残り時間"
         ' 

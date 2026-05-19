@@ -13,6 +13,9 @@ Public Class Form3
     Dim gameState As String = "WAITING" ' ゲーム状態: WAITING, BETTING, PLAYING
     Dim deck As New List(Of String) 'カードデッキ
     Dim dealerHand As New List(Of String) 'ディーラーの手札
+    Dim turnOrder As New List(Of TcpClient) 'プレイヤーのターン順
+    Dim currentTurn As Integer = 0 '現在のターンインデックス
+
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -252,6 +255,13 @@ Public Class Form3
 
     Private Async Sub StartGame()
         Dim rnd As New Random()
+        turnOrder.Clear()
+        For Each pair In players
+            If pair.Value.IsPlaying Then
+                turnOrder.Add(pair.Key)
+            End If
+        Next
+        currentTurn = 0
         InitDeck() '山札初期化
 
         For Each pair In players
@@ -286,6 +296,7 @@ Public Class Form3
             End Try
         Next
         WriteMessage("ゲーム開始（カード配布完了）")
+        SendTurn()
     End Sub
 
     Private Sub InitDeck() '山札初期化
@@ -305,6 +316,17 @@ Public Class Form3
         Return card
     End Function
 
+    Private Async Sub SendTurn()
+        Dim currentClient = turnOrder(currentTurn)
+        Dim name = players(currentClient).Name
+
+        Dim msg As String = "TURN:" & name & vbCrLf
+        Dim data = Encoding.UTF8.GetBytes(msg)
+
+        For Each c In clients
+            Await c.GetStream().WriteAsync(data, 0, data.Length)
+        Next
+    End Sub
 End Class
 
 Class Player
