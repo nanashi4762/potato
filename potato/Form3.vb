@@ -198,7 +198,7 @@ Public Class Form3
                     players(client).IsStand = True
                     WriteMessage(players(client).Name & " はスタンド")
 
-                        Await NextTurnOrDealer()
+                    Await NextTurnOrDealer()
                     Continue While
                 End If
 
