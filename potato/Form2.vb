@@ -134,6 +134,12 @@ Public Class Form2
                                         Button10.Enabled = True
                                     End Sub)
                     Continue While
+                ElseIf m.StartsWith("DEALER_HAND:") Then
+                    Dim hand = m.Substring(12)
+                    Dim cards = hand.Split(","c)
+                    PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
+                    PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
+                    Continue While
                 Else
                     ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
                     If m.Contains(":") Then
