@@ -57,7 +57,7 @@ Partial Class Form3
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
-        TextBox1.Size = New Size(298, 200)
+        TextBox1.Size = New Size(372, 249)
         TextBox1.TabIndex = 2
         ' 
         ' Button2

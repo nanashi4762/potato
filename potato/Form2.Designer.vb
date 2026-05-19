@@ -127,17 +127,17 @@ Partial Class Form2
         ' TextBox1
         ' 
         TextBox1.Cursor = Cursors.IBeam
-        TextBox1.Location = New Point(32, 262)
+        TextBox1.Location = New Point(40, 291)
         TextBox1.Margin = New Padding(2)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
-        TextBox1.Size = New Size(286, 226)
+        TextBox1.Size = New Size(389, 282)
         TextBox1.TabIndex = 2
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(294, 166)
+        Button2.Location = New Point(356, 179)
         Button2.Margin = New Padding(2)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 36)
@@ -148,7 +148,8 @@ Partial Class Form2
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(30, 166)
+        Label2.Location = New Point(8, 189)
+        Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(93, 20)
         Label2.TabIndex = 5
@@ -157,7 +158,7 @@ Partial Class Form2
         ' TextBox2
         ' 
         TextBox2.Cursor = Cursors.IBeam
-        TextBox2.Location = New Point(32, 516)
+        TextBox2.Location = New Point(40, 610)
         TextBox2.Margin = New Padding(2)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
@@ -168,7 +169,7 @@ Partial Class Form2
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(32, 244)
+        Label3.Location = New Point(26, 254)
         Label3.Margin = New Padding(2, 0, 2, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(50, 20)
@@ -177,7 +178,7 @@ Partial Class Form2
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(273, 516)
+        Button3.Location = New Point(341, 608)
         Button3.Margin = New Padding(2)
         Button3.Name = "Button3"
         Button3.Size = New Size(56, 46)
@@ -526,111 +527,29 @@ Partial Class Form2
         ' ComboBox2
         ' 
         ComboBox2.FormattingEnabled = True
-        ComboBox2.Location = New Point(126, 172)
+        ComboBox2.Location = New Point(128, 181)
         ComboBox2.Margin = New Padding(2)
         ComboBox2.Name = "ComboBox2"
         ComboBox2.Size = New Size(156, 28)
         ComboBox2.TabIndex = 50
         ' 
-        ' PictureBox2
+        ' TextBox5
         ' 
-        PictureBox2.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox2.Location = New Point(432, 634)
-        PictureBox2.Margin = New Padding(5, 4, 5, 4)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(833, 162)
-        PictureBox2.TabIndex = 17
-        PictureBox2.TabStop = False
+        TextBox5.Location = New Point(158, 848)
+        TextBox5.Margin = New Padding(4)
+        TextBox5.Name = "TextBox5"
+        TextBox5.Size = New Size(155, 31)
+        TextBox5.TabIndex = 51
         ' 
-        ' PictureBox21
+        ' Label8
         ' 
-        PictureBox21.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox21.Location = New Point(845, 251)
-        PictureBox21.Margin = New Padding(3, 4, 3, 4)
-        PictureBox21.Name = "PictureBox21"
-        PictureBox21.Size = New Size(73, 121)
-        PictureBox21.TabIndex = 51
-        PictureBox21.TabStop = False
-        ' 
-        ' PictureBox22
-        ' 
-        PictureBox22.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox22.Location = New Point(918, 251)
-        PictureBox22.Margin = New Padding(3, 4, 3, 4)
-        PictureBox22.Name = "PictureBox22"
-        PictureBox22.Size = New Size(73, 121)
-        PictureBox22.TabIndex = 52
-        PictureBox22.TabStop = False
-        ' 
-        ' PictureBox7
-        ' 
-        PictureBox7.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox7.Location = New Point(927, 654)
-        PictureBox7.Margin = New Padding(3, 4, 3, 4)
-        PictureBox7.Name = "PictureBox7"
-        PictureBox7.Size = New Size(73, 121)
-        PictureBox7.TabIndex = 53
-        PictureBox7.TabStop = False
-        ' 
-        ' PictureBox16
-        ' 
-        PictureBox16.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox16.Location = New Point(562, 476)
-        PictureBox16.Margin = New Padding(3, 4, 3, 4)
-        PictureBox16.Name = "PictureBox16"
-        PictureBox16.Size = New Size(73, 121)
-        PictureBox16.TabIndex = 54
-        PictureBox16.TabStop = False
-        ' 
-        ' PictureBox23
-        ' 
-        PictureBox23.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox23.Location = New Point(788, 476)
-        PictureBox23.Margin = New Padding(3, 4, 3, 4)
-        PictureBox23.Name = "PictureBox23"
-        PictureBox23.Size = New Size(73, 121)
-        PictureBox23.TabIndex = 55
-        PictureBox23.TabStop = False
-        ' 
-        ' PictureBox24
-        ' 
-        PictureBox24.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox24.Location = New Point(834, 476)
-        PictureBox24.Margin = New Padding(3, 4, 3, 4)
-        PictureBox24.Name = "PictureBox24"
-        PictureBox24.Size = New Size(73, 121)
-        PictureBox24.TabIndex = 56
-        PictureBox24.TabStop = False
-        ' 
-        ' PictureBox25
-        ' 
-        PictureBox25.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox25.Location = New Point(880, 476)
-        PictureBox25.Margin = New Padding(3, 4, 3, 4)
-        PictureBox25.Name = "PictureBox25"
-        PictureBox25.Size = New Size(73, 121)
-        PictureBox25.TabIndex = 57
-        PictureBox25.TabStop = False
-        ' 
-        ' PictureBox26
-        ' 
-        PictureBox26.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox26.Location = New Point(1126, 476)
-        PictureBox26.Margin = New Padding(3, 4, 3, 4)
-        PictureBox26.Name = "PictureBox26"
-        PictureBox26.Size = New Size(73, 121)
-        PictureBox26.TabIndex = 58
-        PictureBox26.TabStop = False
-        ' 
-        ' PictureBox27
-        ' 
-        PictureBox27.BackgroundImage = My.Resources.Resources._22673935
-        PictureBox27.Location = New Point(1172, 476)
-        PictureBox27.Margin = New Padding(3, 4, 3, 4)
-        PictureBox27.Name = "PictureBox27"
-        PictureBox27.Size = New Size(73, 121)
-        PictureBox27.TabIndex = 59
-        PictureBox27.TabStop = False
+        Label8.AutoSize = True
+        Label8.Location = New Point(53, 854)
+        Label8.Margin = New Padding(2, 0, 2, 0)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(78, 25)
+        Label8.TabIndex = 52
+        Label8.Text = "残り時間"
         ' 
         ' Form2
         ' 
