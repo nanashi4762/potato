@@ -152,7 +152,7 @@ Public Class Form2
                 ElseIf m = "BET_START" Then
                     PictureBox28.Image = Nothing
                     TextBox1.Invoke(Sub()
-                                        TextBox1.AppendText("ベットフェーズが始まりました！" & vbCrLf)
+                                        TextBox1.AppendText("SYSTEM:ベットフェーズが始まりました！" & vbCrLf)
                                     End Sub)
                     canbet = True
                     Button10.Invoke(Sub()
@@ -165,8 +165,23 @@ Public Class Form2
                     PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
                     PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
                     Continue While
+                ElseIf m.StartsWith("TURN:") Then
+                    Dim turnPlayer = m.Substring(5)
+                    If turnPlayer = myName Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("SYSTEM:あなたのターンです！" & vbCrLf)
+                                        End Sub)
+                        Button4.Enabled = True
+                        Button5.Enabled = True
+                    Else
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText("SYSTEM:" & turnPlayer & " のターンです" & vbCrLf)
+                                        End Sub)
+                        Button4.Enabled = False
+                        Button5.Enabled = False
+                    End If
                 Else
-                    If m.Contains(":") Then
+                        If m.Contains(":") Then
                         Dim speaker As String = m.Split(":"c)(0)
                         If blockList.Contains(speaker) Then
                             Continue For
