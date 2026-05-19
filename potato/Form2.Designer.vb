@@ -118,7 +118,7 @@ Partial Class Form2
         Label1.Location = New Point(26, 100)
         Label1.Margin = New Padding(2, 0, 2, 0)
         Label1.Name = "Label1"
-        Label1.Size = New Size(75, 20)
+        Label1.Size = New Size(92, 25)
         Label1.TabIndex = 0
         Label1.Text = "ニックネーム"
         ' 
@@ -128,7 +128,7 @@ Partial Class Form2
         ComboBox1.Location = New Point(128, 100)
         ComboBox1.Margin = New Padding(2)
         ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(158, 28)
+        ComboBox1.Size = New Size(158, 33)
         ComboBox1.TabIndex = 1
         ' 
         ' TextBox1
@@ -158,7 +158,7 @@ Partial Class Form2
         Label2.Location = New Point(11, 156)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(93, 20)
+        Label2.Size = New Size(114, 25)
         Label2.TabIndex = 5
         Label2.Text = "プレイヤー一覧"
         ' 
@@ -179,7 +179,7 @@ Partial Class Form2
         Label3.Location = New Point(26, 218)
         Label3.Margin = New Padding(2, 0, 2, 0)
         Label3.Name = "Label3"
-        Label3.Size = New Size(50, 20)
+        Label3.Size = New Size(62, 25)
         Label3.TabIndex = 7
         Label3.Text = "チャット"
         ' 
@@ -218,7 +218,7 @@ Partial Class Form2
         TextBox3.Location = New Point(1591, 1272)
         TextBox3.Margin = New Padding(6, 5, 6, 5)
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(125, 27)
+        TextBox3.Size = New Size(125, 31)
         TextBox3.TabIndex = 15
         TextBox3.Text = "1"
         ' 
@@ -259,7 +259,7 @@ Partial Class Form2
         Label4.Location = New Point(26, 39)
         Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(77, 20)
+        Label4.Size = New Size(96, 25)
         Label4.TabIndex = 19
         Label4.Text = "サーバーのIP"
         ' 
@@ -268,7 +268,7 @@ Partial Class Form2
         TextBox4.Location = New Point(128, 39)
         TextBox4.Margin = New Padding(2, 4, 2, 4)
         TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(158, 27)
+        TextBox4.Size = New Size(158, 31)
         TextBox4.TabIndex = 20
         ' 
         ' Button8
@@ -399,7 +399,7 @@ Partial Class Form2
         Label5.Location = New Point(30, 562)
         Label5.Margin = New Padding(2, 0, 2, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(81, 20)
+        Label5.Size = New Size(99, 25)
         Label5.TabIndex = 38
         Label5.Text = "現在の状態"
         ' 
@@ -450,7 +450,7 @@ Partial Class Form2
         TextBox6.Location = New Point(787, 788)
         TextBox6.Margin = New Padding(2)
         TextBox6.Name = "TextBox6"
-        TextBox6.Size = New Size(124, 27)
+        TextBox6.Size = New Size(124, 31)
         TextBox6.TabIndex = 43
         ' 
         ' Button10
@@ -491,26 +491,26 @@ Partial Class Form2
         Label6.Location = New Point(718, 723)
         Label6.Margin = New Padding(2, 0, 2, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(83, 20)
+        Label6.Size = New Size(103, 25)
         Label6.TabIndex = 47
         Label6.Text = "現在のチップ"
         ' 
         ' TextBox7
         ' 
-        TextBox7.Location = New Point(803, 718)
+        TextBox7.Location = New Point(828, 717)
         TextBox7.Margin = New Padding(2)
         TextBox7.Name = "TextBox7"
         TextBox7.ReadOnly = True
-        TextBox7.Size = New Size(90, 27)
+        TextBox7.Size = New Size(90, 31)
         TextBox7.TabIndex = 48
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(896, 723)
+        Label7.Location = New Point(922, 723)
         Label7.Margin = New Padding(2, 0, 2, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(24, 20)
+        Label7.Size = New Size(30, 25)
         Label7.TabIndex = 49
         Label7.Text = "枚"
         ' 
@@ -520,7 +520,7 @@ Partial Class Form2
         ComboBox2.Location = New Point(128, 156)
         ComboBox2.Margin = New Padding(2)
         ComboBox2.Name = "ComboBox2"
-        ComboBox2.Size = New Size(158, 28)
+        ComboBox2.Size = New Size(158, 33)
         ComboBox2.TabIndex = 50
         ' 
         ' TextBox5
@@ -528,7 +528,7 @@ Partial Class Form2
         TextBox5.Location = New Point(121, 618)
         TextBox5.Margin = New Padding(4)
         TextBox5.Name = "TextBox5"
-        TextBox5.Size = New Size(102, 27)
+        TextBox5.Size = New Size(102, 31)
         TextBox5.TabIndex = 51
         ' 
         ' Label8
@@ -537,7 +537,7 @@ Partial Class Form2
         Label8.Location = New Point(37, 618)
         Label8.Margin = New Padding(2, 0, 2, 0)
         Label8.Name = "Label8"
-        Label8.Size = New Size(64, 20)
+        Label8.Size = New Size(78, 25)
         Label8.TabIndex = 52
         Label8.Text = "残り時間"
         ' 
@@ -674,7 +674,7 @@ Partial Class Form2
         ' 
         ' TextBox8
         ' 
-        TextBox8.Location = New Point(636, 469)
+        TextBox8.Location = New Point(502, 517)
         TextBox8.Name = "TextBox8"
         TextBox8.ReadOnly = True
         TextBox8.Size = New Size(140, 31)
@@ -682,7 +682,7 @@ Partial Class Form2
         ' 
         ' TextBox9
         ' 
-        TextBox9.Location = New Point(984, 469)
+        TextBox9.Location = New Point(778, 517)
         TextBox9.Name = "TextBox9"
         TextBox9.ReadOnly = True
         TextBox9.Size = New Size(140, 31)
@@ -690,7 +690,7 @@ Partial Class Form2
         ' 
         ' TextBox10
         ' 
-        TextBox10.Location = New Point(1342, 469)
+        TextBox10.Location = New Point(1058, 517)
         TextBox10.Name = "TextBox10"
         TextBox10.ReadOnly = True
         TextBox10.Size = New Size(140, 31)
