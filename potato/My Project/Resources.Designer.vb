@@ -63,6 +63,16 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property _1枚() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("1枚", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property _22673935() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("22673935", resourceCulture)
@@ -73,9 +83,29 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property _2辛() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("2辛", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property BJタイトル() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("BJタイトル", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property potatochips() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("potatochips", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
