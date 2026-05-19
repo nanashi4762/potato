@@ -363,7 +363,34 @@ Public Class Form3
         End If
 
         Dim currentClient = turnOrder(currentTurn)
-        Dim name = players(currentClient).Name
+        Dim player = players(currentClient)
+        Dim name = player.Name
+
+        ' ブラックジャック判定
+        If IsBlackjack(player.Hand) Then
+
+            WriteMessage(name & " はブラックジャック！")
+
+            ' 全員に通知
+            Dim msgBJ As String = "SYSTEM:" & name & " はブラックジャック！" & vbCrLf
+            Dim dataBJ = Encoding.UTF8.GetBytes(msgBJ)
+
+            For Each c In clients
+                Await c.GetStream().WriteAsync(dataBJ, 0, dataBJ.Length)
+            Next
+            player.IsBJ = True
+
+            ' 即ターン終了
+            currentTurn += 1
+
+            If currentTurn < turnOrder.Count Then
+                Await SendTurn()
+            Else
+                Await DealerPlay()
+            End If
+
+            Return ' ← 重要（ここで終わる）
+        End If
         players(currentClient).IsStand = False
 
         Dim msg As String = "TURN:" & name & vbCrLf
@@ -460,7 +487,10 @@ Public Class Form3
             Dim score = GetScore(player.Hand)
             Dim res As String = ""
 
-            If score > 21 OrElse score < dealerScore Then
+            If player.IsBJ Then
+                res = "WIN"
+                player.Chips += player.Bet * 2.5
+            ElseIf score > 21 OrElse score < dealerScore Then
                 res = "LOSE"
             ElseIf score > dealerScore OrElse dealerScore > 21 Then
                 res = "WIN"
@@ -478,8 +508,16 @@ Public Class Form3
             End Try
             player.Bet = 0
             gameState = "WAITING"
+            Await Task.Delay(3000)
             timer.Start()
         Next
+    End Function
+
+    Private Function IsBlackjack(hand As List(Of String)) As Boolean
+        If hand.Count = 2 AndAlso GetScore(hand) = 21 Then
+            Return True
+        End If
+        Return False
     End Function
 End Class
 
@@ -488,6 +526,7 @@ Class Player
     Public Hand As New List(Of String)
     Public IsStand As Boolean = False
     Public IsPlaying As Boolean = False
+    Public IsBJ As Boolean = False
     Public Chips As Integer = 10
     Public Bet As Integer = 0
 End Class
