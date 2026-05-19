@@ -602,7 +602,7 @@ Partial Class Form2
         Controls.Add(Label1)
         Margin = New Padding(2)
         Name = "Form2"
-        Text = "Form2"
+        Text = "会場"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
