@@ -11,6 +11,7 @@ Public Class Form3
     Dim count As Integer = 30
     Dim timer As New Timer()
     Dim gameState As String = "WAITING" ' ゲーム状態: WAITING, BETTING, PLAYING
+    Dim deck As New List(Of String) 'カードデッキ
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -188,6 +189,7 @@ Public Class Form3
 
     Private Async Sub StartGame()
         Dim rnd As New Random()
+        InitDeck() '山札初期化
 
         For Each pair In players
             Dim client = pair.Key
@@ -195,13 +197,12 @@ Public Class Form3
 
             If player.IsPlaying Then
 
-
                 player.Hand.Clear()
 
-                player.Hand.Add(rnd.Next(1, 12))
-                player.Hand.Add(rnd.Next(1, 12))
+                player.Hand.Add(DrawCard())
+                player.Hand.Add(DrawCard())
 
-                Dim msg As String = "HAND:" & String.Join(",", player.Hand)
+                Dim msg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
                 Dim data = Encoding.UTF8.GetBytes(msg)
 
                 Await client.GetStream().WriteAsync(data, 0, data.Length)
@@ -211,11 +212,28 @@ Public Class Form3
         WriteMessage("ゲーム開始（カード配布完了）")
     End Sub
 
+    Private Sub InitDeck() '山札初期化
+        deck.Clear()
+        For num = 0 To 12
+            For suit = 0 To 3
+                deck.Add(num.ToString("00") & "_" & suit.ToString("00"))
+            Next
+        Next
+    End Sub
+
+    Private Function DrawCard() As String 'カードを引く
+        Dim rnd As New Random()
+        Dim index = rnd.Next(deck.Count)
+        Dim card = deck(index)
+        deck.RemoveAt(index)
+        Return card
+    End Function
+
 End Class
 
 Class Player
     Public Name As String
-    Public Hand As New List(Of Integer)
+    Public Hand As New List(Of String)
     Public IsStand As Boolean = False
     Public IsPlaying As Boolean = False
     Public Chips As Integer = 10
