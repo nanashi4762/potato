@@ -74,23 +74,27 @@ Public Class Form2
                                         TextBox1.AppendText("参加完了: " & name & vbCrLf)
                                     End Sub)
                 ElseIf m.StartsWith("PLAYER_LIST:") Then
-                    Dim list = m.Substring(12)
-                    Dim names = list.Split(","c)
+                    Dim names As String() = m.Replace("PLAYER_LIST:", "").Split(","c)
 
-                    ' TextBox8, 9, 10 に順番に入れる
-                    Dim textBoxes As TextBox() = {TextBox8, TextBox9, TextBox10}
+                    ' ここで「自分の名前」を定義してください（もし変数があればそれを使ってください）
+                    Dim myName As String = "自分の名前"
 
-                    Me.Invoke(Sub()
-                                  ' 一旦空にする（または必要に応じてクリア）
-                                  For Each tb In textBoxes
-                                      tb.Text = ""
-                                  Next
+                    ' 表示対象のTextBoxをリスト化
+                    Dim targetTextBoxes As TextBox() = {TextBox8, TextBox9, TextBox10}
+                    Dim index As Integer = 0
 
-                                  ' 登録された順に最大3人まで表示
-                                  For i As Integer = 0 To Math.Min(names.Length - 1, 2)
-                                      textBoxes(i).Text = names(i)
-                                  Next
-                              End Sub)
+                    For Each name As String In names
+                        ' 自分の名前と一致しなければTextBoxに代入
+                        If name <> myName And index < targetTextBoxes.Length Then
+                            targetTextBoxes(index).Text = name
+                            index += 1
+                        End If
+                    Next
+
+                    ' 余ったTextBoxをクリア（人数が減った場合などのため）
+                    For i As Integer = index To targetTextBoxes.Length - 1
+                        targetTextBoxes(i).Clear()
+                    Next
                 ElseIf m.StartsWith("PLAYERS:") Then
                     Dim list = m.Substring(8)
                     Dim names = list.Split(","c)
