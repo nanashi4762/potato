@@ -147,7 +147,7 @@ Partial Class Form2
         Button2.Location = New Point(246, 120)
         Button2.Margin = New Padding(2)
         Button2.Name = "Button2"
-        Button2.Size = New Size(76, 28)
+        Button2.Size = New Size(101, 28)
         Button2.TabIndex = 4
         Button2.Text = "ブロックする"
         Button2.UseVisualStyleBackColor = True
