@@ -79,6 +79,9 @@ Partial Class Form2
         PictureBox26 = New PictureBox()
         PictureBox27 = New PictureBox()
         PictureBox28 = New PictureBox()
+        TextBox8 = New TextBox()
+        TextBox9 = New TextBox()
+        TextBox10 = New TextBox()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -668,11 +671,38 @@ Partial Class Form2
         PictureBox28.TabIndex = 65
         PictureBox28.TabStop = False
         ' 
+        ' TextBox8
+        ' 
+        TextBox8.Location = New Point(636, 469)
+        TextBox8.Name = "TextBox8"
+        TextBox8.ReadOnly = True
+        TextBox8.Size = New Size(140, 31)
+        TextBox8.TabIndex = 66
+        ' 
+        ' TextBox9
+        ' 
+        TextBox9.Location = New Point(984, 469)
+        TextBox9.Name = "TextBox9"
+        TextBox9.ReadOnly = True
+        TextBox9.Size = New Size(140, 31)
+        TextBox9.TabIndex = 67
+        ' 
+        ' TextBox10
+        ' 
+        TextBox10.Location = New Point(1342, 469)
+        TextBox10.Name = "TextBox10"
+        TextBox10.ReadOnly = True
+        TextBox10.Size = New Size(140, 31)
+        TextBox10.TabIndex = 68
+        ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1612, 1045)
+        Controls.Add(TextBox10)
+        Controls.Add(TextBox9)
+        Controls.Add(TextBox8)
         Controls.Add(PictureBox28)
         Controls.Add(PictureBox24)
         Controls.Add(PictureBox25)
@@ -820,4 +850,7 @@ Partial Class Form2
     Friend WithEvents PictureBox26 As PictureBox
     Friend WithEvents PictureBox27 As PictureBox
     Friend WithEvents PictureBox28 As PictureBox
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents TextBox10 As TextBox
 End Class
