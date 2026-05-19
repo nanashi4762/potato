@@ -446,6 +446,7 @@ Partial Class Form2
         ' 
         ' Button10
         ' 
+        Button10.Enabled = False
         Button10.Location = New Point(906, 842)
         Button10.Margin = New Padding(2)
         Button10.Name = "Button10"
@@ -652,7 +653,7 @@ Partial Class Form2
         ' 
         ' Form2
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1302, 900)
         Controls.Add(PictureBox24)

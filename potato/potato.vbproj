@@ -200,6 +200,9 @@
 	  <None Update="12_03.bmp">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+	  <None Update="BACK.bmp">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

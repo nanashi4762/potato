@@ -243,7 +243,7 @@ Public Class Form3
                     clients.Remove(c)
                 End Try
             Next
-            count = 30
+            count = 15
         Else
             WriteMessage("参加者なし")
             count = 30
@@ -275,7 +275,7 @@ Public Class Form3
         dealerHand.Add(DrawCard())
         dealerHand.Add(DrawCard())
 
-        Dim dmsg As String = "DEALER_HAND:" & String.Join(",", dealerHand) & vbCrLf
+        Dim dmsg As String = "DEALER_HAND:" & dealerHand(0) & ",BACK" & vbCrLf
         Dim ddata = Encoding.UTF8.GetBytes(dmsg)
         For Each c In clients
             Try
