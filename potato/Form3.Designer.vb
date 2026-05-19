@@ -35,7 +35,7 @@ Partial Class Form3
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(409, 89)
+        Label1.Location = New Point(126, 33)
         Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(190, 25)
@@ -44,8 +44,8 @@ Partial Class Form3
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(512, 131)
-        Button1.Margin = New Padding(4, 4, 4, 4)
+        Button1.Location = New Point(229, 75)
+        Button1.Margin = New Padding(4)
         Button1.Name = "Button1"
         Button1.Size = New Size(78, 76)
         Button1.TabIndex = 1
@@ -55,8 +55,8 @@ Partial Class Form3
         ' TextBox1
         ' 
         TextBox1.ImeMode = ImeMode.NoControl
-        TextBox1.Location = New Point(310, 246)
-        TextBox1.Margin = New Padding(4, 4, 4, 4)
+        TextBox1.Location = New Point(27, 190)
+        TextBox1.Margin = New Padding(4)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(372, 249)
@@ -64,8 +64,8 @@ Partial Class Form3
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(599, 131)
-        Button2.Margin = New Padding(4, 4, 4, 4)
+        Button2.Location = New Point(316, 75)
+        Button2.Margin = New Padding(4)
         Button2.Name = "Button2"
         Button2.Size = New Size(84, 79)
         Button2.TabIndex = 3
@@ -75,7 +75,7 @@ Partial Class Form3
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(226, 159)
+        Label2.Location = New Point(27, 69)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(81, 25)
@@ -84,8 +84,8 @@ Partial Class Form3
         ' 
         ' TextBox2
         ' 
-        TextBox2.Location = New Point(310, 154)
-        TextBox2.Margin = New Padding(4, 4, 4, 4)
+        TextBox2.Location = New Point(27, 98)
+        TextBox2.Margin = New Padding(4)
         TextBox2.Name = "TextBox2"
         TextBox2.ReadOnly = True
         TextBox2.Size = New Size(193, 31)
@@ -93,8 +93,8 @@ Partial Class Form3
         ' 
         ' TextBox3
         ' 
-        TextBox3.Location = New Point(526, 521)
-        TextBox3.Margin = New Padding(4, 4, 4, 4)
+        TextBox3.Location = New Point(243, 465)
+        TextBox3.Margin = New Padding(4)
         TextBox3.Name = "TextBox3"
         TextBox3.Size = New Size(155, 31)
         TextBox3.TabIndex = 6
@@ -102,7 +102,7 @@ Partial Class Form3
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(402, 525)
+        Label3.Location = New Point(119, 469)
         Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(113, 25)
@@ -111,9 +111,9 @@ Partial Class Form3
         ' 
         ' Form3
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1021, 594)
+        ClientSize = New Size(422, 570)
         Controls.Add(Label3)
         Controls.Add(TextBox3)
         Controls.Add(TextBox2)
@@ -122,7 +122,7 @@ Partial Class Form3
         Controls.Add(TextBox1)
         Controls.Add(Button1)
         Controls.Add(Label1)
-        Margin = New Padding(4, 4, 4, 4)
+        Margin = New Padding(4)
         Name = "Form3"
         Text = "サーバーページ"
         ResumeLayout(False)

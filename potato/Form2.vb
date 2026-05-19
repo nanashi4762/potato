@@ -209,4 +209,20 @@ Public Class Form2
         End If
     End Sub
 
+    Private Async Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        ' まだゲームに参加していなければ何もしない
+        If Not IsJoined Then Return
+
+        Try
+            ' サーバーに「つまみ食いするよ！」と伝えるメッセージ（末尾に改行を必ず入れる）
+            Dim msg As String = "TSUMAMI:" & vbCrLf
+            Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
+
+            Dim stream = client.GetStream()
+            Await stream.WriteAsync(data, 0, data.Length)
+
+        Catch ex As Exception
+            TextBox1.AppendText("つまみ食いに失敗しました: " & ex.Message & vbCrLf)
+        End Try
+    End Sub
 End Class

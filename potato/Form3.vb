@@ -117,6 +117,45 @@ Public Class Form3
                         End If
                     End If
                     Continue While
+                ElseIf m.StartsWith("TSUMAMI:") Then
+                    Dim player = players(client)
+
+                    ' ちゃんとゲーム中、かつチップが1枚以上あるかチェック
+                    If gameState = "PLAYING" AndAlso player.IsPlaying AndAlso player.Chips >= 1 Then
+                        ' チップを1枚減らす
+                        player.Chips -= 1
+
+                        ' 手札をクリアして現在の山札から2枚引き直す
+                        player.Hand.Clear()
+                        player.Hand.Add(DrawCard())
+                        player.Hand.Add(DrawCard())
+
+                        ' 1. 本人に減った後のチップ数を通知
+                        Dim chipMsg As String = "CHIPS:" & player.Chips & vbCrLf
+                        Dim chipData = Encoding.UTF8.GetBytes(chipMsg)
+                        Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
+
+                        ' 2. 本人に新しい手札を通知（例: HAND:01_02,11_00）
+                        Dim handMsg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                        Dim handData = Encoding.UTF8.GetBytes(handMsg)
+                        Await client.GetStream().WriteAsync(handData, 0, handData.Length)
+
+                        ' 3. 全員にシステムメッセージで実況
+                        WriteMessage(player.Name & " がつまみ食いして手札を引き直した！")
+                        Dim sysMsg As String = "SYSTEM:" & player.Name & " がつまみ食いして手札を引き直しました（チップ-1）" & vbCrLf
+                        Dim sysData = Encoding.UTF8.GetBytes(sysMsg)
+
+                        ' 全員にブロードキャスト
+                        For Each c In clients.ToList()
+                            Try
+                                Dim s = c.GetStream()
+                                Await s.WriteAsync(sysData, 0, sysData.Length)
+                            Catch
+                                clients.Remove(c)
+                            End Try
+                        Next
+                    End If
+                    Continue While ' チャットとして処理されないようにループをスキップ！
                 End If
 
                 ' 表示
