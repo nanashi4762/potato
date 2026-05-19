@@ -212,7 +212,22 @@ Public Class Form2
                 ElseIf m.StartsWith("TURN:") Then
                     Dim turnPlayer = m.Substring(5)
 
+                    ' UIの操作を行うため、Me.Invoke を使う
                     Me.Invoke(Sub()
+                                  ' 対象となる他人のTextBoxリスト
+                                  Dim targetTextBoxes As TextBox() = {TextBox8, TextBox9, TextBox10}
+
+                                  ' 全てのTextBoxの背景色をチェックして切り替える
+                                  For Each txt In targetTextBoxes
+                                      ' TextBoxが空じゃなくて、かつ中身が現在のターンプレイヤー名と一致したら色を変える
+                                      If txt.Text <> "" AndAlso txt.Text = turnPlayer Then
+                                          txt.BackColor = Color.LightGreen ' ★アクティブな人の色（お好みの色に変えてね）
+                                      Else
+                                          txt.BackColor = SystemColors.Window ' ★それ以外の人はデフォルトの白に戻す
+                                      End If
+                                  Next
+
+                                  ' 自分のターンの場合の判定
                                   If turnPlayer = myName Then
                                       TextBox1.AppendText("SYSTEM:あなたのターンです！" & vbCrLf)
                                       Button4.Enabled = True
@@ -223,6 +238,7 @@ Public Class Form2
                                       Button5.Enabled = False
                                   End If
                               End Sub)
+                    Continue For
                     Continue For
                 ElseIf m.StartsWith("RESULT:") Then
                     Dim result = m.Substring(7)
@@ -251,7 +267,7 @@ Public Class Form2
                     PictureBox17.Image = Nothing
                     PictureBox16.Image = Nothing
 
-                    Continue While
+                    Continue For
                 Else
                     If m.Contains(":") Then
                         Dim speaker As String = m.Split(":"c)(0)
