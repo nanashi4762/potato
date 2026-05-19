@@ -113,8 +113,8 @@ Public Class Form2
                 ElseIf m.StartsWith("HAND:") Then
                     Dim hand = m.Substring(5)
                     Dim cards = hand.Split(","c)
-                    PictureBox15.Image = Image.FromFile("cards/" & cards(0) & ".bmp")
-                    PictureBox14.Image = Image.FromFile("cards/" & cards(1) & ".bmp")
+                    PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
+                    PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
                     Continue While
                 Else
                     ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
@@ -187,4 +187,5 @@ Public Class Form2
             TextBox1.AppendText("数字を入力してください" & vbCrLf)
         End If
     End Sub
+
 End Class
