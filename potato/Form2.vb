@@ -181,7 +181,7 @@ Public Class Form2
                         Button5.Enabled = False
                     End If
                 Else
-                        If m.Contains(":") Then
+                    If m.Contains(":") Then
                         Dim speaker As String = m.Split(":"c)(0)
                         If blockList.Contains(speaker) Then
                             Continue For
