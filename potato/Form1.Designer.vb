@@ -23,56 +23,60 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Button1 = New Button()
-        Label1 = New Label()
         Button2 = New Button()
+        PictureBox1 = New PictureBox()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(239, 151)
-        Button1.Margin = New Padding(3, 2, 3, 2)
+        Button1.Font = New Font("Yu Gothic UI", 20F, FontStyle.Bold, GraphicsUnit.Point, CByte(128))
+        Button1.Location = New Point(351, 398)
+        Button1.Margin = New Padding(4, 3, 4, 3)
         Button1.Name = "Button1"
-        Button1.Size = New Size(197, 77)
+        Button1.Size = New Size(281, 128)
         Button1.TabIndex = 0
         Button1.Text = "プレイする！"
         Button1.UseVisualStyleBackColor = True
         ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Location = New Point(251, 91)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(165, 15)
-        Label1.TabIndex = 1
-        Label1.Text = "かんたんブラックジャックfeat.ぽてち"
-        ' 
         ' Button2
         ' 
-        Button2.Location = New Point(477, 148)
-        Button2.Margin = New Padding(3, 2, 3, 2)
+        Button2.BackColor = SystemColors.ButtonFace
+        Button2.Location = New Point(846, 451)
+        Button2.Margin = New Padding(4, 3, 4, 3)
         Button2.Name = "Button2"
-        Button2.Size = New Size(113, 80)
+        Button2.Size = New Size(129, 84)
         Button2.TabIndex = 4
-        Button2.Text = "管理者ぺーじ"
-        Button2.UseVisualStyleBackColor = True
+        Button2.Text = "管理者用"
+        Button2.UseVisualStyleBackColor = False
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.Image = My.Resources.Resources.BJタイトル
+        PictureBox1.Location = New Point(214, 12)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(558, 380)
+        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
+        PictureBox1.TabIndex = 5
+        PictureBox1.TabStop = False
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(700, 337)
+        ClientSize = New Size(1000, 562)
+        Controls.Add(PictureBox1)
         Controls.Add(Button2)
-        Controls.Add(Label1)
         Controls.Add(Button1)
-        Margin = New Padding(3, 2, 3, 2)
+        Margin = New Padding(4, 3, 4, 3)
         Name = "Form1"
         Text = "Form1"
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
-        PerformLayout()
     End Sub
 
     Friend WithEvents Button1 As Button
-    Friend WithEvents Label1 As Label
     Friend WithEvents Button2 As Button
+    Friend WithEvents PictureBox1 As PictureBox
 
 End Class
