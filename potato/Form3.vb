@@ -78,13 +78,24 @@ Public Class Form3
                             End Try
                         Next
                         ' プレイヤー一覧を作る
-                        Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames)
+                        Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames) & vbCrLf
                         Dim listData = Encoding.UTF8.GetBytes(listMsg)
 
                         For Each c In clients.ToList()
                             Try
                                 Dim s = c.GetStream()
                                 Await s.WriteAsync(listData, 0, listData.Length)
+                            Catch
+                                clients.Remove(c)
+                            End Try
+                        Next
+                        Dim playerListMsg As String = "PLAYER_LIST:" & String.Join(",", playerNames) & vbCrLf
+                        Dim playerListData = Encoding.UTF8.GetBytes(playerListMsg)
+
+                        For Each c In clients.ToList()
+                            Try
+                                Dim s = c.GetStream()
+                                Await s.WriteAsync(playerListData, 0, playerListData.Length)
                             Catch
                                 clients.Remove(c)
                             End Try

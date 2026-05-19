@@ -74,7 +74,24 @@ Public Class Form2
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("参加完了: " & name & vbCrLf)
                                     End Sub)
-                    Continue For
+                ElseIf m.StartsWith("PLAYER_LIST:") Then
+                    Dim list = m.Substring(12)
+                    Dim names = list.Split(","c)
+
+                    ' TextBox8, 9, 10 に順番に入れる
+                    Dim textBoxes As TextBox() = {TextBox8, TextBox9, TextBox10}
+
+                    Me.Invoke(Sub()
+                                  ' 一旦空にする（または必要に応じてクリア）
+                                  For Each tb In textBoxes
+                                      tb.Text = ""
+                                  Next
+
+                                  ' 登録された順に最大3人まで表示
+                                  For i As Integer = 0 To Math.Min(names.Length - 1, 2)
+                                      textBoxes(i).Text = names(i)
+                                  Next
+                              End Sub)
                 ElseIf m.StartsWith("PLAYERS:") Then
                     Dim list = m.Substring(8)
                     Dim names = list.Split(","c)
@@ -237,6 +254,7 @@ Public Class Form2
         Dim msg As String = "MODE:" & mode
         Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
         Await client.GetStream().WriteAsync(data, 0, data.Length)
+
     End Sub
 
     Private Async Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
