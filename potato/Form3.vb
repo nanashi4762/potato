@@ -12,6 +12,7 @@ Public Class Form3
     Dim timer As New Timer()
     Dim gameState As String = "WAITING" ' ゲーム状態: WAITING, BETTING, PLAYING
     Dim deck As New List(Of String) 'カードデッキ
+    Dim dealerHand As New List(Of String) 'ディーラーの手札
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             listener = New TcpListener(IPAddress.Any, Network.port)
@@ -228,10 +229,20 @@ Public Class Form3
         End If
     End Sub
 
-    Private Sub CheckStart()
+    Private Async Sub CheckStart()
         If players.Values.Any(Function(p) p.IsPlaying) Then
             WriteMessage("ベット開始")
             gameState = "BETTING"
+            Dim msg = "BET_START" & vbCrLf
+            Dim data = Encoding.UTF8.GetBytes(msg)
+            For Each c In clients
+                Try
+                    Dim s = c.GetStream()
+                    Await s.WriteAsync(data, 0, data.Length)
+                Catch ex As Exception
+                    clients.Remove(c)
+                End Try
+            Next
             count = 30
         Else
             WriteMessage("参加者なし")
@@ -250,7 +261,6 @@ Public Class Form3
             If player.IsPlaying Then
 
                 player.Hand.Clear()
-
                 player.Hand.Add(DrawCard())
                 player.Hand.Add(DrawCard())
 
@@ -261,6 +271,20 @@ Public Class Form3
             End If
         Next
 
+        dealerHand.Clear()
+        dealerHand.Add(DrawCard())
+        dealerHand.Add(DrawCard())
+
+        Dim dmsg As String = "DEALER_HAND:" & String.Join(",", dealerHand) & vbCrLf
+        Dim ddata = Encoding.UTF8.GetBytes(dmsg)
+        For Each c In clients
+            Try
+                Dim s = c.GetStream()
+                Await s.WriteAsync(ddata, 0, ddata.Length)
+            Catch ex As Exception
+                clients.Remove(c)
+            End Try
+        Next
         WriteMessage("ゲーム開始（カード配布完了）")
     End Sub
 
