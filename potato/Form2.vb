@@ -1,5 +1,6 @@
 ﻿Imports System.Net.Sockets
 Imports System.Text
+Imports System.Threading.Tasks.Dataflow
 
 Public Class Form2
     Dim client As TcpClient
@@ -192,6 +193,12 @@ Public Class Form2
                 ElseIf m.StartsWith("DEALER_HAND:") Then
                     Dim hand = m.Substring(12)
                     Dim cards = hand.Split(","c)
+                    Button4.Invoke(Sub()
+                                       Button4.Enabled = False
+                                   End Sub)
+                    Button5.Invoke(Sub()
+                                       Button5.Enabled = False
+                                   End Sub)
                     For i = 0 To cards.Length - 1
                         PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
                         PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
