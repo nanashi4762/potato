@@ -165,8 +165,15 @@ Public Class Form2
                 ElseIf m.StartsWith("HAND:") Then
                     Dim hand = m.Substring(5)
                     Dim cards = hand.Split(","c)
-                    PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
-                    PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
+                    For i = 0 To cards.Length - 1
+                        PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
+                        PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
+                        If i = 2 Then
+                            PictureBox6.Image = Image.FromFile(cards(2) & ".bmp")
+                        ElseIf i = 3 Then
+                            PictureBox7.Image = Image.FromFile(cards(3) & ".bmp")
+                        End If
+                    Next
                     Continue For
                 ElseIf m = "BET_START" Then
                     PictureBox28.Image = Nothing
@@ -181,8 +188,15 @@ Public Class Form2
                 ElseIf m.StartsWith("DEALER_HAND:") Then
                     Dim hand = m.Substring(12)
                     Dim cards = hand.Split(","c)
-                    PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
-                    PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
+                    For i = 0 To cards.Length - 1
+                        PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
+                        PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
+                        If i = 2 Then
+                            PictureBox22.Image = Image.FromFile(cards(2) & ".bmp")
+                        ElseIf i = 3 Then
+                            PictureBox21.Image = Image.FromFile(cards(3) & ".bmp")
+                        End If
+                    Next
                     Continue For
                 ElseIf m.StartsWith("TURN:") Then
                     Dim turnPlayer = m.Substring(5)
@@ -311,5 +325,11 @@ Public Class Form2
         Dim standMsg As String = "STAND" & vbCrLf
         Dim data As Byte() = Encoding.UTF8.GetBytes(standMsg)
         client.GetStream().WriteAsync(data, 0, data.Length)
+        Button4.Invoke(Sub()
+                           Button4.Enabled = False
+                       End Sub)
+        Button5.Invoke(Sub()
+                           Button5.Enabled = False
+                       End Sub)
     End Sub
 End Class

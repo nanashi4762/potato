@@ -173,6 +173,31 @@ Public Class Form3
                         Next
                     End If
                     Continue While ' チャットとして処理されないようにループをスキップ！
+                ElseIf m = "HIT" Then
+                    Dim player = players(client)
+                    player.Hand.Add(DrawCard())
+                    Dim hitmsg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                    Dim hitdata = Encoding.UTF8.GetBytes(hitmsg)
+                    Await client.GetStream().WriteAsync(hitdata, 0, hitdata.Length)
+
+                    Dim score = GetScore(player.Hand)
+                    If score > 21 Then
+                        WriteMessage(player.Name & " はバーストしました")
+
+                        Dim bustMsg = Encoding.UTF8.GetBytes("SYSTEM:" & player.Name & " はバーストしました！" & vbCrLf)
+                        For Each c In clients
+                            Await c.GetStream().WriteAsync(bustMsg, 0, bustMsg.Length)
+                        Next
+
+                        Await NextTurnOrDealer()
+                    End If
+                    Continue While
+                ElseIf m = "STAND" Then
+                    players(client).IsStand = True
+                    WriteMessage(players(client).Name & " はスタンド")
+
+                        Await NextTurnOrDealer()
+                    Continue While
                 End If
 
                 WriteMessage(m)
@@ -333,23 +358,74 @@ Public Class Form3
 
         Dim currentClient = turnOrder(currentTurn)
         Dim name = players(currentClient).Name
-
-        WriteMessage("TURN送信: " & name)
+        players(currentClient).IsStand = False
 
         Dim msg As String = "TURN:" & name & vbCrLf
         Dim data = Encoding.UTF8.GetBytes(msg)
 
-        WriteMessage(clients.Count & "人のクライアントにTURNを送信")
         For Each c In clients.ToList()
             Try
                 Dim s = c.GetStream()
                 Await s.WriteAsync(data, 0, data.Length)
-                WriteMessage("TURN送信完了")
             Catch
                 WriteMessage("TURN送信失敗: " & c.Client.RemoteEndPoint.ToString())
             End Try
         Next
     End Function
+
+    Private Function GetScore(hand As List(Of String)) As Integer '手札計算
+        Dim total As Integer = 0
+
+        For Each card In hand
+            Dim num As Integer = Integer.Parse(card.Substring(0, 2))
+
+            If num >= 10 Then
+                total += 10
+            Else
+                total += num + 1
+            End If
+        Next
+
+        Return total
+    End Function
+
+    Private Async Function NextTurnOrDealer() As Task
+        currentTurn += 1
+
+        If currentTurn >= turnOrder.Count Then
+            WriteMessage("全員終了 → ディーラーのターン")
+
+            Await DealerPlay()
+
+        Else
+            Await SendTurn()
+        End If
+    End Function
+
+    Private Async Function DealerPlay() As Task
+        Dim msg As String = "DEALER_HAND:" & String.Join(",", dealerHand) & vbCrLf
+        Dim data = Encoding.UTF8.GetBytes(msg)
+        For Each c In clients
+            Await c.GetStream().WriteAsync(data, 0, data.Length)
+        Next
+        Await Task.Delay(2000) ' ディーラーの手札を見せるために少し待つ
+        ' 17以上になるまで引く
+        While GetScore(dealerHand) < 17
+            dealerHand.Add(DrawCard())
+            Dim msg2 As String = "DEALER_HAND:" & String.Join(",", dealerHand) & vbCrLf
+            Dim data2 = Encoding.UTF8.GetBytes(msg2)
+            For Each c In clients
+                Await c.GetStream().WriteAsync(data2, 0, data2.Length)
+            Next
+            Await Task.Delay(2000)
+            If dealerHand.Count > 3 Then
+                Exit While
+            End If
+        End While
+
+        WriteMessage("ディーラー終了")
+    End Function
+
 End Class
 
 Class Player
