@@ -153,7 +153,7 @@ Public Class Form3
                         Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
 
                         ' 2. 本人に新しい手札を通知（例: HAND:01_02,11_00）
-                        Dim handMsg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                        Dim handMsg As String = "HAND:" & player.Name & ":" & String.Join(",", player.Hand) & vbCrLf
                         Dim handData = Encoding.UTF8.GetBytes(handMsg)
                         Await client.GetStream().WriteAsync(handData, 0, handData.Length)
 
@@ -569,6 +569,7 @@ Public Class Form3
 
             ' ベットをリセット
             player.Bet = 0
+            player.IsBJ = False
             gameState = "WAITING"
             Await Task.Delay(3000)
             Dim msg As String = "WAITING" & vbCrLf
@@ -583,8 +584,6 @@ Public Class Form3
             Next
             timer.Start()
         Next
-
-        gameState = "WAITING"
         Await Task.Delay(3000)
         timer.Start()
     End Function
