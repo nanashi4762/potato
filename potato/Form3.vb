@@ -37,95 +37,103 @@ Public Class Form3
             If len = 0 Then Exit While
 
             Dim msg = Encoding.UTF8.GetString(buffer, 0, len)
-            If msg.StartsWith("JOIN:") Then
-                Dim name = msg.Substring(5)
+            Dim msgs = msg.Split({vbCrLf}, StringSplitOptions.RemoveEmptyEntries)
 
-                If playerNames.Contains(name) Then
-                    Dim res = Encoding.UTF8.GetBytes("NAME_TAKEN")
-                    Await client.GetStream().WriteAsync(res, 0, res.Length)
-                Else
-                    playerNames.Add(name)
-                    players(client) = New Player With {.Name = name}
+            For Each m In msgs
+                If m.StartsWith("JOIN:") Then
+                    Dim name = m.Substring(5)
 
-                    Dim res = Encoding.UTF8.GetBytes("NAME_OK:" & name)
-                    Await client.GetStream().WriteAsync(res, 0, res.Length)
-
-                    Dim joinMsg As String = "SYSTEM:" & name & " が参加しました" & vbCrLf
-                    Dim joindata = Encoding.UTF8.GetBytes(joinMsg)
-                    WriteMessage("プレイヤー数: " & players.Count)
-                    WriteMessage(joinMsg)
-
-                    Dim chipMsg As String = "CHIPS:" & players(client).Chips & vbCrLf
-                    Dim chipData = Encoding.UTF8.GetBytes(chipMsg)
-                    Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
-
-                    For Each c In clients.ToList()
-                        Try
-                            Dim s = c.GetStream()
-                            Await s.WriteAsync(joindata, 0, joindata.Length)
-                        Catch
-                            clients.Remove(c)
-                        End Try
-                    Next
-                    ' プレイヤー一覧を作る
-                    Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames)
-                    Dim listData = Encoding.UTF8.GetBytes(listMsg)
-
-                    For Each c In clients.ToList()
-                        Try
-                            Dim s = c.GetStream()
-                            Await s.WriteAsync(listData, 0, listData.Length)
-                        Catch
-                            clients.Remove(c)
-                        End Try
-                    Next
-
-                End If
-                Continue While
-            ElseIf msg.StartsWith("MODE:") Then
-                Dim mode = msg.Substring(5)
-
-                If players.ContainsKey(client) Then
-                    If mode = "参加" Then
-                        players(client).IsPlaying = True
-                    Else
-                        players(client).IsPlaying = False
-                    End If
-                    WriteMessage(players(client).Name & " は " & mode & " を選択")
-                End If
-                Continue While
-            ElseIf msg.StartsWith("BET:") Then
-                Dim value = Integer.Parse(msg.Substring(4))
-                Dim bet As Integer
-                If Integer.TryParse(value, bet) Then
-                    Dim player = players(client)
-                    If bet <= player.Chips AndAlso bet > 0 Then
-                        player.Bet = bet
-                        WriteMessage(player.Name & "が" & bet & " チップをベット")
-                        Dim res = Encoding.UTF8.GetBytes("BET_OK:" & bet & vbCrLf)
+                    If playerNames.Contains(name) Then
+                        Dim res = Encoding.UTF8.GetBytes("NAME_TAKEN")
                         Await client.GetStream().WriteAsync(res, 0, res.Length)
                     Else
-                        Dim res = Encoding.UTF8.GetBytes("BET_FAIL" & vbCrLf)
+                        playerNames.Add(name)
+                        players(client) = New Player With {.Name = name}
+
+                        Dim res = Encoding.UTF8.GetBytes("NAME_OK:" & name)
                         Await client.GetStream().WriteAsync(res, 0, res.Length)
+
+                        Dim joinMsg As String = "SYSTEM:" & name & " が参加しました" & vbCrLf
+                        Dim joindata = Encoding.UTF8.GetBytes(joinMsg)
+                        WriteMessage("プレイヤー数: " & players.Count)
+                        WriteMessage(joinMsg)
+
+                        Dim chipMsg As String = "CHIPS:" & players(client).Chips & vbCrLf
+                        Dim chipData = Encoding.UTF8.GetBytes(chipMsg)
+                        Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
+
+                        For Each c In clients.ToList()
+                            Try
+                                Dim s = c.GetStream()
+                                Await s.WriteAsync(joindata, 0, joindata.Length)
+                            Catch
+                                clients.Remove(c)
+                            End Try
+                        Next
+                        ' プレイヤー一覧を作る
+                        Dim listMsg As String = "PLAYERS:" & String.Join(",", playerNames)
+                        Dim listData = Encoding.UTF8.GetBytes(listMsg)
+
+                        For Each c In clients.ToList()
+                            Try
+                                Dim s = c.GetStream()
+                                Await s.WriteAsync(listData, 0, listData.Length)
+                            Catch
+                                clients.Remove(c)
+                            End Try
+                        Next
+
                     End If
+                    Continue While
+                ElseIf m.StartsWith("MODE:") Then
+                    Dim mode = m.Substring(5)
+
+                    If players.ContainsKey(client) Then
+                        If mode = "参加" Then
+                            players(client).IsPlaying = True
+                        Else
+                            players(client).IsPlaying = False
+                        End If
+                        WriteMessage(players(client).Name & " は " & mode & " を選択")
+                    End If
+                    Continue While
+                ElseIf m.StartsWith("BET:") Then
+                    Dim value = Integer.Parse(m.Substring(4))
+                    Dim bet As Integer
+                    If Integer.TryParse(value, bet) Then
+                        Dim player = players(client)
+                        If bet <= player.Chips AndAlso bet > 0 Then
+                            player.Bet = bet
+                            player.Chips -= bet
+                            WriteMessage(player.Name & "が" & bet & " チップをベット")
+                            Dim res = Encoding.UTF8.GetBytes("BET_OK:" & bet & vbCrLf)
+                            Await client.GetStream().WriteAsync(res, 0, res.Length)
+                            Dim resChip = Encoding.UTF8.GetBytes("CHIPS:" & player.Chips & vbCrLf)
+                            Await client.GetStream().WriteAsync(resChip, 0, resChip.Length)
+                        Else
+                            Dim res = Encoding.UTF8.GetBytes("BET_FAIL" & vbCrLf)
+                            Await client.GetStream().WriteAsync(res, 0, res.Length)
+                        End If
+                    End If
+                    Continue While
                 End If
-            End If
 
-            ' 表示
-            TextBox1.Invoke(Sub()
-                                TextBox1.AppendText(msg & vbCrLf)
-                            End Sub)
+                ' 表示
+                TextBox1.Invoke(Sub()
+                                    TextBox1.AppendText(m & vbCrLf)
+                                End Sub)
 
-            ' 全員に送信（ブロードキャスト）
-            Dim data = Encoding.UTF8.GetBytes(msg)
+                ' 全員に送信（ブロードキャスト）
+                Dim data = Encoding.UTF8.GetBytes(m)
 
-            For Each c In clients
-                Try
-                    Dim s = c.GetStream()
-                    Await s.WriteAsync(data, 0, data.Length)
-                Catch ex As Exception
-                    clients.Remove(c) ' 送信に失敗したクライアントをリストから削除
-                End Try
+                For Each c In clients
+                    Try
+                        Dim s = c.GetStream()
+                        Await s.WriteAsync(data, 0, data.Length)
+                    Catch ex As Exception
+                        clients.Remove(c) ' 送信に失敗したクライアントをリストから削除
+                    End Try
+                Next
             Next
         End While
     End Sub

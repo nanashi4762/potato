@@ -78,7 +78,7 @@ Public Class Form2
                 ElseIf m.StartsWith("BET_OK:") Then
                     Dim amount = m.Substring(7)
                     TextBox1.Invoke(Sub()
-                                        TextBox1.AppendText("ベット: " & amount & vbCrLf)
+                                        TextBox1.AppendText(amount & "チップをベットしました" & vbCrLf)
                                     End Sub)
                 ElseIf m.StartsWith("BET_FAIL") Then
                     Dim reason = m.Substring(8)
