@@ -69,6 +69,8 @@ Partial Class Form2
         TextBox7 = New TextBox()
         Label7 = New Label()
         ComboBox2 = New ComboBox()
+        TextBox5 = New TextBox()
+        Label8 = New Label()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -113,17 +115,17 @@ Partial Class Form2
         ' TextBox1
         ' 
         TextBox1.Cursor = Cursors.IBeam
-        TextBox1.Location = New Point(40, 328)
+        TextBox1.Location = New Point(40, 291)
         TextBox1.Margin = New Padding(2)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.ScrollBars = ScrollBars.Vertical
-        TextBox1.Size = New Size(356, 282)
+        TextBox1.Size = New Size(389, 282)
         TextBox1.TabIndex = 2
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(368, 208)
+        Button2.Location = New Point(356, 179)
         Button2.Margin = New Padding(2)
         Button2.Name = "Button2"
         Button2.Size = New Size(108, 45)
@@ -134,7 +136,7 @@ Partial Class Form2
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(38, 208)
+        Label2.Location = New Point(8, 189)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(114, 25)
@@ -144,7 +146,7 @@ Partial Class Form2
         ' TextBox2
         ' 
         TextBox2.Cursor = Cursors.IBeam
-        TextBox2.Location = New Point(40, 645)
+        TextBox2.Location = New Point(40, 610)
         TextBox2.Margin = New Padding(2)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
@@ -155,7 +157,7 @@ Partial Class Form2
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(40, 305)
+        Label3.Location = New Point(26, 254)
         Label3.Margin = New Padding(2, 0, 2, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(62, 25)
@@ -164,7 +166,7 @@ Partial Class Form2
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(341, 645)
+        Button3.Location = New Point(341, 608)
         Button3.Margin = New Padding(2)
         Button3.Name = "Button3"
         Button3.Size = New Size(70, 58)
@@ -543,17 +545,37 @@ Partial Class Form2
         ' ComboBox2
         ' 
         ComboBox2.FormattingEnabled = True
-        ComboBox2.Location = New Point(158, 215)
+        ComboBox2.Location = New Point(128, 181)
         ComboBox2.Margin = New Padding(2)
         ComboBox2.Name = "ComboBox2"
         ComboBox2.Size = New Size(194, 33)
         ComboBox2.TabIndex = 50
+        ' 
+        ' TextBox5
+        ' 
+        TextBox5.Location = New Point(158, 848)
+        TextBox5.Margin = New Padding(4)
+        TextBox5.Name = "TextBox5"
+        TextBox5.Size = New Size(155, 31)
+        TextBox5.TabIndex = 51
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Location = New Point(53, 854)
+        Label8.Margin = New Padding(2, 0, 2, 0)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(78, 25)
+        Label8.TabIndex = 52
+        Label8.Text = "残り時間"
         ' 
         ' Form2
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1628, 1132)
+        Controls.Add(Label8)
+        Controls.Add(TextBox5)
         Controls.Add(ComboBox2)
         Controls.Add(Label7)
         Controls.Add(TextBox7)
@@ -673,4 +695,6 @@ Partial Class Form2
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents Label8 As Label
 End Class

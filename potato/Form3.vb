@@ -122,8 +122,8 @@ Public Class Form3
 
                     ' ちゃんとゲーム中、かつチップが1枚以上あるかチェック
                     If gameState = "PLAYING" AndAlso player.IsPlaying AndAlso player.Chips >= 1 Then
-                        ' チップを1枚減らす
-                        player.Chips -= 1
+                        ' チップを3枚減らす
+                        player.Chips -= 3
 
                         ' 手札をクリアして現在の山札から2枚引き直す
                         player.Hand.Clear()
@@ -198,10 +198,23 @@ Public Class Form3
         Next
     End Sub
 
-    Private Sub TimerTick(sender As Object, e As EventArgs)
+    Private Async Sub TimerTick(sender As Object, e As EventArgs)
         If count > 0 Then
             count -= 1
             TextBox3.Text = count
+
+            Dim timeMsg As String = "TIME:" & count & vbCrLf
+            Dim timeData = Encoding.UTF8.GetBytes(timeMsg)
+
+            For Each c In clients.ToList()
+                Try
+                    Dim s = c.GetStream()
+                    Await s.WriteAsync(timeData, 0, timeData.Length)
+                Catch
+                    clients.Remove(c)
+                End Try
+            Next
+
         Else
             If gameState = "BETTING" Then
                 WriteMessage("ベット終了&ゲーム開始")
