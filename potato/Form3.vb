@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.Net.Sockets
 Imports System.Text
+'Imports System.Threading
 
 Public Class Form3
     Dim listener As TcpListener
@@ -9,7 +10,8 @@ Public Class Form3
     Dim playerNames As New List(Of String)
     Dim players As New Dictionary(Of TcpClient, Player)
     Dim count As Integer = 30
-    Dim timer As New Timer()
+    Dim timer As New System.Windows.Forms.Timer()
+    'Dim timer As New Timer()
     Dim gameState As String = "WAITING" ' ゲーム状態: WAITING, BETTING, PLAYING
     Dim deck As New List(Of String) 'カードデッキ
     Dim dealerHand As New List(Of String) 'ディーラーの手札
@@ -146,7 +148,7 @@ Public Class Form3
 
                         ' 3. 全員にシステムメッセージで実況
                         WriteMessage(player.Name & " がつまみ食いして手札を引き直した！")
-                        Dim sysMsg As String = "SYSTEM:" & player.Name & " がつまみ食いして手札を引き直しました（チップ-1）" & vbCrLf
+                        Dim sysMsg As String = "SYSTEM:" & player.Name & " がつまみ食いして手札を引き直しました（チップ-3）" & vbCrLf
                         Dim sysData = Encoding.UTF8.GetBytes(sysMsg)
 
                         ' 全員にブロードキャスト
@@ -162,15 +164,11 @@ Public Class Form3
                     Continue While ' チャットとして処理されないようにループをスキップ！
                 End If
 
-                ' 表示
-                TextBox1.Invoke(Sub()
-                                    TextBox1.AppendText(m & vbCrLf)
-                                End Sub)
-
+                WriteMessage(m)
                 ' 全員に送信（ブロードキャスト）
                 Dim data = Encoding.UTF8.GetBytes(m)
 
-                For Each c In clients
+                For Each c In clients.ToList()
                     Try
                         Dim s = c.GetStream()
                         Await s.WriteAsync(data, 0, data.Length)
@@ -223,7 +221,7 @@ Public Class Form3
             If gameState = "BETTING" Then
                 WriteMessage("ベット終了&ゲーム開始")
                 gameState = "PLAYING"
-                StartGame()
+                Await StartGame()
                 timer.Stop()
                 count = 30
             ElseIf gameState = "WAITING" Then
@@ -238,7 +236,7 @@ Public Class Form3
             gameState = "BETTING"
             Dim msg = "BET_START" & vbCrLf
             Dim data = Encoding.UTF8.GetBytes(msg)
-            For Each c In clients
+            For Each c In clients.ToList()
                 Try
                     Dim s = c.GetStream()
                     Await s.WriteAsync(data, 0, data.Length)
@@ -253,7 +251,7 @@ Public Class Form3
         End If
     End Sub
 
-    Private Async Sub StartGame()
+    Private Async Function StartGame() As Task
         Dim rnd As New Random()
         turnOrder.Clear()
         For Each pair In players
@@ -296,8 +294,8 @@ Public Class Form3
             End Try
         Next
         WriteMessage("ゲーム開始（カード配布完了）")
-        SendTurn()
-    End Sub
+        Await SendTurn()
+    End Function
 
     Private Sub InitDeck() '山札初期化
         deck.Clear()
@@ -316,17 +314,31 @@ Public Class Form3
         Return card
     End Function
 
-    Private Async Sub SendTurn()
+    Private Async Function SendTurn() As Task
+        If turnOrder.Count = 0 Then
+            WriteMessage("ターン対象なし")
+            Return
+        End If
+
         Dim currentClient = turnOrder(currentTurn)
         Dim name = players(currentClient).Name
+
+        WriteMessage("TURN送信: " & name)
 
         Dim msg As String = "TURN:" & name & vbCrLf
         Dim data = Encoding.UTF8.GetBytes(msg)
 
-        For Each c In clients
-            Await c.GetStream().WriteAsync(data, 0, data.Length)
+        WriteMessage(clients.Count & "人のクライアントにTURNを送信")
+        For Each c In clients.ToList()
+            Try
+                Dim s = c.GetStream()
+                Await s.WriteAsync(data, 0, data.Length)
+                WriteMessage("TURN送信完了")
+            Catch
+                WriteMessage("TURN送信失敗: " & c.Client.RemoteEndPoint.ToString())
+            End Try
         Next
-    End Sub
+    End Function
 End Class
 
 Class Player

@@ -523,7 +523,7 @@ Partial Class Form2
         ' TextBox5
         ' 
         TextBox5.Location = New Point(121, 618)
-        TextBox5.Margin = New Padding(4, 4, 4, 4)
+        TextBox5.Margin = New Padding(4)
         TextBox5.Name = "TextBox5"
         TextBox5.Size = New Size(102, 27)
         TextBox5.TabIndex = 51

@@ -8,6 +8,7 @@ Public Class Form2
     Dim IsPlaying As Boolean = False
     Dim blockList As New List(Of String)()
     Dim canbet As Boolean = False
+    Dim recvBuffer As String = ""
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         ' ComboBox2 で選ばれている名前を取得
@@ -45,7 +46,7 @@ Public Class Form2
             Return
         End If
         Try
-            Dim msg As String = myName & ":" & TextBox2.Text
+            Dim msg As String = myName & ":" & TextBox2.Text & vbCrLf
             Dim data As Byte() = Encoding.UTF8.GetBytes(msg)
             Dim stream = client.GetStream()
             Await stream.WriteAsync(data, 0, data.Length)
@@ -63,7 +64,7 @@ Public Class Form2
             If len = 0 Then Exit While
 
             Dim msg = Encoding.UTF8.GetString(buffer, 0, len)
-            Dim msgs = msg.Split({vbCrLf}, StringSplitOptions.RemoveEmptyEntries)
+            Dim msgs = msg.Split(New String() {vbCrLf}, StringSplitOptions.RemoveEmptyEntries)
 
             For Each m In msgs
                 If m.StartsWith("NAME_OK:") Then
@@ -73,6 +74,7 @@ Public Class Form2
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("参加完了: " & name & vbCrLf)
                                     End Sub)
+                    Continue For
                 ElseIf m.StartsWith("PLAYERS:") Then
                     Dim list = m.Substring(8)
                     Dim names = list.Split(","c)
@@ -87,7 +89,7 @@ Public Class Form2
                                              ComboBox2.SelectedIndex = 0
                                          End If
                                      End Sub)
-
+                    Continue For
                 ElseIf m.StartsWith("SYSTEM:") Then
                     ' ★システムメッセージ（つまみ食いなど）をブロック判定して表示
                     Dim showMessage As Boolean = True
@@ -103,20 +105,20 @@ Public Class Form2
                                             TextBox1.AppendText(m & vbCrLf)
                                         End Sub)
                     End If
-
+                    Continue For
                 ElseIf m.StartsWith("TIME:") Then
                     ' ★サーバーから届いた "TIME:29" などの文字列から、数字部分だけを抜き出す
                     Dim t = m.Substring(5)
                     TextBox5.Invoke(Sub()
                                         TextBox5.Text = t ' TextBox5に秒数（数字のみ）を上書き表示
                                     End Sub)
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("CHIPS:") Then
                     Dim chip = m.Substring(6)
                     TextBox7.Invoke(Sub()
                                         TextBox7.Text = chip
                                     End Sub)
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("BET_OK:") Then
                     Dim amountStr = m.Substring(7)
                     Dim amount As Integer = Integer.Parse(amountStr)
@@ -137,18 +139,18 @@ Public Class Form2
                     Button10.Invoke(Sub()
                                         Button10.Enabled = False
                                     End Sub)
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("BET_FAIL") Then
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("HAND:") Then
                     Dim hand = m.Substring(5)
                     Dim cards = hand.Split(","c)
                     PictureBox15.Image = Image.FromFile(cards(0) & ".bmp")
                     PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
-                    Continue While
+                    Continue For
                 ElseIf m = "BET_START" Then
                     PictureBox28.Image = Nothing
                     TextBox1.Invoke(Sub()
@@ -158,28 +160,28 @@ Public Class Form2
                     Button10.Invoke(Sub()
                                         Button10.Enabled = True
                                     End Sub)
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("DEALER_HAND:") Then
                     Dim hand = m.Substring(12)
                     Dim cards = hand.Split(","c)
                     PictureBox19.Image = Image.FromFile(cards(0) & ".bmp")
                     PictureBox18.Image = Image.FromFile(cards(1) & ".bmp")
-                    Continue While
+                    Continue For
                 ElseIf m.StartsWith("TURN:") Then
                     Dim turnPlayer = m.Substring(5)
-                    If turnPlayer = myName Then
-                        TextBox1.Invoke(Sub()
-                                            TextBox1.AppendText("SYSTEM:あなたのターンです！" & vbCrLf)
-                                        End Sub)
-                        Button4.Enabled = True
-                        Button5.Enabled = True
-                    Else
-                        TextBox1.Invoke(Sub()
-                                            TextBox1.AppendText("SYSTEM:" & turnPlayer & " のターンです" & vbCrLf)
-                                        End Sub)
-                        Button4.Enabled = False
-                        Button5.Enabled = False
-                    End If
+
+                    Me.Invoke(Sub()
+                                  If turnPlayer = myName Then
+                                      TextBox1.AppendText("SYSTEM:あなたのターンです！" & vbCrLf)
+                                      Button4.Enabled = True
+                                      Button5.Enabled = True
+                                  Else
+                                      TextBox1.AppendText("SYSTEM:" & turnPlayer & " のターンです" & vbCrLf)
+                                      Button4.Enabled = False
+                                      Button5.Enabled = False
+                                  End If
+                              End Sub)
+                    Continue For
                 Else
                     If m.Contains(":") Then
                         Dim speaker As String = m.Split(":"c)(0)
@@ -280,4 +282,16 @@ Public Class Form2
             Return ""            ' 画像なし
         End If
     End Function
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Dim hitMsg As String = "HIT" & vbCrLf
+        Dim data As Byte() = Encoding.UTF8.GetBytes(hitMsg)
+        client.GetStream().WriteAsync(data, 0, data.Length)
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Dim standMsg As String = "STAND" & vbCrLf
+        Dim data As Byte() = Encoding.UTF8.GetBytes(standMsg)
+        client.GetStream().WriteAsync(data, 0, data.Length)
+    End Sub
 End Class
