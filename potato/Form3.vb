@@ -176,9 +176,11 @@ Public Class Form3
                 ElseIf m = "HIT" Then
                     Dim player = players(client)
                     player.Hand.Add(DrawCard())
-                    Dim hitmsg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                    Dim hitmsg As String = "HAND:" & player.Name & ":" & String.Join(",", player.Hand) & vbCrLf
                     Dim hitdata = Encoding.UTF8.GetBytes(hitmsg)
-                    Await client.GetStream().WriteAsync(hitdata, 0, hitdata.Length)
+                    For Each c In clients
+                        Await c.GetStream().WriteAsync(hitdata, 0, hitdata.Length)
+                    Next
 
                     Dim score = GetScore(player.Hand)
                     If score > 21 Then
@@ -298,7 +300,16 @@ Public Class Form3
         turnOrder.Clear()
         For Each pair In players
             If pair.Value.IsPlaying Then
-                turnOrder.Add(pair.Key)
+                If pair.Value.Bet = 0 Then
+                    pair.Value.IsPlaying = False
+                    Dim msg As String = "FORCE_LEAVE:" & pair.Value.Name & vbCrLf
+                    Dim data = Encoding.UTF8.GetBytes(msg)
+                    For Each c In clients
+                        Await c.GetStream().WriteAsync(data, 0, data.Length)
+                    Next
+                Else
+                    turnOrder.Add(pair.Key)
+                End If
             End If
         Next
         currentTurn = 0
@@ -314,10 +325,12 @@ Public Class Form3
                 player.Hand.Add(DrawCard())
                 player.Hand.Add(DrawCard())
 
-                Dim msg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                Dim msg As String = "HAND:" & player.Name & ":" & String.Join(",", player.Hand) & vbCrLf
                 Dim data = Encoding.UTF8.GetBytes(msg)
 
-                Await client.GetStream().WriteAsync(data, 0, data.Length)
+                For Each c In clients
+                    Await c.GetStream().WriteAsync(data, 0, data.Length)
+                Next
             End If
         Next
 
@@ -509,6 +522,16 @@ Public Class Form3
             player.Bet = 0
             gameState = "WAITING"
             Await Task.Delay(3000)
+            Dim msg As String = "WAITING" & vbCrLf
+            Dim data = Encoding.UTF8.GetBytes(msg)
+            For Each c In clients.ToList()
+                Try
+                    Dim s = c.GetStream()
+                    Await s.WriteAsync(data, 0, data.Length)
+                Catch
+                    clients.Remove(c)
+                End Try
+            Next
             timer.Start()
         Next
     End Function
