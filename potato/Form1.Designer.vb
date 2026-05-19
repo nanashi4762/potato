@@ -31,7 +31,7 @@ Partial Class Form1
         ' Button1
         ' 
         Button1.Font = New Font("Yu Gothic UI", 20F, FontStyle.Bold, GraphicsUnit.Point, CByte(128))
-        Button1.Location = New Point(351, 398)
+        Button1.Location = New Point(336, 395)
         Button1.Margin = New Padding(4, 3, 4, 3)
         Button1.Name = "Button1"
         Button1.Size = New Size(281, 128)
@@ -55,7 +55,7 @@ Partial Class Form1
         PictureBox1.Image = My.Resources.Resources.BJタイトル
         PictureBox1.Location = New Point(214, 12)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(558, 380)
+        PictureBox1.Size = New Size(549, 408)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 5
         PictureBox1.TabStop = False
@@ -65,12 +65,12 @@ Partial Class Form1
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1000, 562)
+        Controls.Add(Button1)
         Controls.Add(PictureBox1)
         Controls.Add(Button2)
-        Controls.Add(Button1)
         Margin = New Padding(4, 3, 4, 3)
         Name = "Form1"
-        Text = "Form1"
+        Text = "開始ページ"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
