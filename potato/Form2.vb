@@ -75,26 +75,41 @@ Public Class Form2
                 ElseIf m.StartsWith("PLAYERS:") Then
                     Dim list = m.Substring(8)
                     Dim names = list.Split(","c)
-                    ' TextBox5 ではなく ComboBox2 に名前をセットする
                     ComboBox2.Invoke(Sub()
-
                                          ComboBox2.Items.Clear()
                                          For Each n In names
-                                             ' 自分以外のプレイヤーだけをリストに追加（自分をブロックしないように）
                                              If n <> myName Then
                                                  ComboBox2.Items.Add(n)
                                              End If
                                          Next
-                                         ' 最初の人を自動で選択状態にする（空白対策）
                                          If ComboBox2.Items.Count > 0 Then
                                              ComboBox2.SelectedIndex = 0
                                          End If
                                      End Sub)
 
                 ElseIf m.StartsWith("SYSTEM:") Then
-                    TextBox1.Invoke(Sub()
-                                        TextBox1.AppendText(m & vbCrLf)
+                    ' ★システムメッセージ（つまみ食いなど）をブロック判定して表示
+                    Dim showMessage As Boolean = True
+                    For Each blockedName In blockList
+                        If m.Contains(blockedName) Then
+                            showMessage = False
+                            Exit For
+                        End If
+                    Next
+
+                    If showMessage Then
+                        TextBox1.Invoke(Sub()
+                                            TextBox1.AppendText(m & vbCrLf)
+                                        End Sub)
+                    End If
+
+                ElseIf m.StartsWith("TIME:") Then
+                    ' ★サーバーから届いた "TIME:29" などの文字列から、数字部分だけを抜き出す
+                    Dim t = m.Substring(5)
+                    TextBox5.Invoke(Sub()
+                                        TextBox5.Text = t ' TextBox5に秒数（数字のみ）を上書き表示
                                     End Sub)
+
                 ElseIf m.StartsWith("CHIPS:") Then
                     Dim chip = m.Substring(6)
                     TextBox7.Invoke(Sub()
@@ -106,7 +121,6 @@ Public Class Form2
                                         TextBox1.AppendText(amount & "チップをベットしました" & vbCrLf)
                                     End Sub)
                 ElseIf m.StartsWith("BET_FAIL") Then
-                    Dim reason = m.Substring(8)
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
@@ -117,17 +131,13 @@ Public Class Form2
                     PictureBox14.Image = Image.FromFile(cards(1) & ".bmp")
                     Continue While
                 Else
-                    ' ★最後のElse（その他の一般チャット：名前:メッセージ の処理）
                     If m.Contains(":") Then
-                        Dim speaker As String = m.Split(":"c)(0) ' 送信者の名前を抜き出す
-
-                        ' もしブロックリストに入っている名前なら、表示せずにスルーして次のループへ
+                        Dim speaker As String = m.Split(":"c)(0)
                         If blockList.Contains(speaker) Then
                             Continue For
                         End If
                     End If
 
-                    ' ブロックされていなければ普通に表示
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(m & vbCrLf)
                                     End Sub)
