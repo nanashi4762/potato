@@ -85,6 +85,12 @@ Public Class Form2
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText("チップが不足しています！" & vbCrLf)
                                     End Sub)
+                ElseIf m.StartsWith("HAND:") Then
+                    Dim hand = m.Substring(5)
+                    Dim cards = hand.Split(","c)
+                    PictureBox15.Image = Image.FromFile("cards/" & cards(0) & ".bmp")
+                    PictureBox14.Image = Image.FromFile("cards/" & cards(1) & ".bmp")
+                    Continue While
                 Else
                     TextBox1.Invoke(Sub()
                                         TextBox1.AppendText(m & vbCrLf)
