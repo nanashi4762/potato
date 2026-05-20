@@ -139,6 +139,11 @@ Public Class Form3
 
                     ' ちゃんとゲーム中、かつチップが1枚以上あるかチェック
                     If gameState = "PLAYING" AndAlso player.IsPlaying AndAlso player.Chips >= 1 Then
+                        Dim currentClient = turnOrder(currentTurn)
+
+                        If client IsNot currentClient Then
+                            Continue While ' 自分のターンじゃなければ無視
+                        End If
                         ' チップを3枚減らす
                         player.Chips -= 3
 
@@ -153,7 +158,7 @@ Public Class Form3
                         Await client.GetStream().WriteAsync(chipData, 0, chipData.Length)
 
                         ' 2. 本人に新しい手札を通知（例: HAND:01_02,11_00）
-                        Dim handMsg As String = "HAND:" & String.Join(",", player.Hand) & vbCrLf
+                        Dim handMsg As String = "HAND:" & player.Name & ":" & String.Join(",", player.Hand) & vbCrLf
                         Dim handData = Encoding.UTF8.GetBytes(handMsg)
                         Await client.GetStream().WriteAsync(handData, 0, handData.Length)
 
@@ -171,6 +176,17 @@ Public Class Form3
                                 clients.Remove(c)
                             End Try
                         Next
+                        Dim score = GetScore(player.Hand)
+                        If score > 21 Then
+                            WriteMessage(player.Name & " はバーストしました")
+
+                            Dim bustMsg = Encoding.UTF8.GetBytes("SYSTEM:" & player.Name & " はバーストしました！" & vbCrLf)
+                            For Each c In clients
+                                Await c.GetStream().WriteAsync(bustMsg, 0, bustMsg.Length)
+                            Next
+
+                            Await NextTurnOrDealer()
+                        End If
                     End If
                     Continue While ' チャットとして処理されないようにループをスキップ！
                 ElseIf m = "HIT" Then
@@ -259,8 +275,8 @@ Public Class Form3
             If gameState = "BETTING" Then
                 WriteMessage("ベット終了&ゲーム開始")
                 gameState = "PLAYING"
-                Await StartGame()
                 timer.Stop()
+                Await StartGame()
                 count = 30
             ElseIf gameState = "WAITING" Then
                 CheckStart()
@@ -312,6 +328,21 @@ Public Class Form3
                 End If
             End If
         Next
+        If turnOrder.Count = 0 Then
+            WriteMessage("ベットしたプレイヤーがいませんでした。ゲームを開始できません。")
+            Dim endmsg = "SYSTEM:ベットしたプレイヤーがいないため、ゲームを開始できませんでした" & vbCrLf
+            Dim enddata = Encoding.UTF8.GetBytes(endmsg)
+            Dim waitMsg = "WAITING" & vbCrLf
+            Dim waitData = Encoding.UTF8.GetBytes(waitMsg)
+            For Each c In clients
+                Await c.GetStream().WriteAsync(enddata, 0, enddata.Length)
+                Await c.GetStream().WriteAsync(waitData, 0, waitData.Length)
+            Next
+            gameState = "WAITING"
+            count = 30
+            timer.Start()
+            Return
+        End If
         currentTurn = 0
         InitDeck() '山札初期化
 
