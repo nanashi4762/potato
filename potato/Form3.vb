@@ -600,6 +600,7 @@ Public Class Form3
 
             ' ベットをリセット
             player.Bet = 0
+            player.IsBJ = False
             gameState = "WAITING"
             Await Task.Delay(3000)
             Dim msg As String = "WAITING" & vbCrLf
@@ -614,8 +615,6 @@ Public Class Form3
             Next
             timer.Start()
         Next
-
-        gameState = "WAITING"
         Await Task.Delay(3000)
         timer.Start()
     End Function
